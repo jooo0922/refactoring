@@ -4,7 +4,7 @@
 const fs = require("fs");
 const invoice = JSON.parse(fs.readFileSync("./invoices.json", "utf8"));
 const plays = JSON.parse(fs.readFileSync("./plays.json", "utf8"));
-
+//hi
 function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -53,4 +53,6 @@ function statement(invoice, plays) {
   return result;
 }
 
-console.log(statement(invoice, plays)); // 터미널에 'node app.js' 를 입력해서 app.js 를 Node.js 로 실행하면, 터미널에 리턴값인 result를 출력함.
+// 터미널에 'node app.js' 를 입력해서 app.js 를 Node.js 로 실행하면, 터미널에 리턴값인 result를 출력함.
+// 참고로, refactoring 디렉토리에서 작업중이라면, 'cd ch1' 으로 디렉토리를 변경해야 app.js 실행이 가능할 것임.
+console.log(statement(invoice, plays));
