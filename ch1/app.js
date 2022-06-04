@@ -4,7 +4,7 @@
 const fs = require("fs");
 const invoice = JSON.parse(fs.readFileSync("./invoices.json", "utf8"));
 const plays = JSON.parse(fs.readFileSync("./plays.json", "utf8"));
-//hi
+
 function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
