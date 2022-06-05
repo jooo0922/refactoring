@@ -63,22 +63,22 @@ function usd(aNumber) {
 
 // 포인트 적립 누적계산 함수 추출
 function totalVolumeCredits() {
-  let volumeCredits = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
+  let result = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
   // 반복문 쪼개기
   for (let perf of invoice.performances) {
-    volumeCredits += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
+    result += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
   }
-  return volumeCredits;
+  return result; // 반환값 변수명은 가급적 'result'
 }
 
 // totalAmount 함수 추출 (동일 이름의 변수가 있어서 일단 임의의 함수 이름 작성)
 function totalAmount() {
-  let totalAmount = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
+  let result = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
   // 반복문 쪼개기
   for (let perf of invoice.performances) {
-    totalAmount += amountFor(perf); // thisAmount 변수 인라인
+    result += amountFor(perf); // thisAmount 변수 인라인
   }
-  return totalAmount;
+  return result; // 반환값 변수명은 가급적 'result'
 }
 
 function statement(invoice, plays) {
