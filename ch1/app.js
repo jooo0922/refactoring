@@ -82,6 +82,10 @@ function statement(invoice, plays) {
       // thisAmount 변수 인라인
       perf.audience
     }석)\n`;
+  }
+
+  // 반복문 쪼개기
+  for (let perf of invoice.performances) {
     totalAmount += amountFor(perf); // thisAmount 변수 인라인
   }
 
