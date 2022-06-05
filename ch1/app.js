@@ -71,6 +71,16 @@ function totalVolumeCredits() {
   return volumeCredits;
 }
 
+// totalAmount 함수 추출 (동일 이름의 변수가 있어서 일단 임의의 함수 이름 작성)
+function appleSauce() {
+  let totalAmount = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
+  // 반복문 쪼개기
+  for (let perf of invoice.performances) {
+    totalAmount += amountFor(perf); // thisAmount 변수 인라인
+  }
+  return totalAmount;
+}
+
 function statement(invoice, plays) {
   let result = `청구 내역 (고객명: ${invoice.customer})\n`;
 
@@ -82,12 +92,7 @@ function statement(invoice, plays) {
       perf.audience
     }석)\n`;
   }
-
-  let totalAmount = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
-  // 반복문 쪼개기
-  for (let perf of invoice.performances) {
-    totalAmount += amountFor(perf); // thisAmount 변수 인라인
-  }
+  let totalAmount = appleSauce();
 
   result += `총액: ${usd(totalAmount)}\n`;
   result += `적립 포인트: ${totalVolumeCredits()}점\n`; // volumeCredits 변수 인라인하여 제거
