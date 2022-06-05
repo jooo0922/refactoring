@@ -92,9 +92,8 @@ function statement(invoice, plays) {
       perf.audience
     }석)\n`;
   }
-  let totalAmount = appleSauce();
 
-  result += `총액: ${usd(totalAmount)}\n`;
+  result += `총액: ${usd(appleSauce())}\n`; // totalAmount 변수 인라인하여 제거
   result += `적립 포인트: ${totalVolumeCredits()}점\n`; // volumeCredits 변수 인라인하여 제거
   return result;
 }
