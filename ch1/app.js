@@ -72,7 +72,6 @@ function totalVolumeCredits() {
 }
 
 function statement(invoice, plays) {
-  let totalAmount = 0;
   let result = `청구 내역 (고객명: ${invoice.customer})\n`;
 
   for (let perf of invoice.performances) {
@@ -84,6 +83,7 @@ function statement(invoice, plays) {
     }석)\n`;
   }
 
+  let totalAmount = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
   // 반복문 쪼개기
   for (let perf of invoice.performances) {
     totalAmount += amountFor(perf); // thisAmount 변수 인라인
