@@ -72,7 +72,7 @@ function totalVolumeCredits() {
 }
 
 // totalAmount 함수 추출 (동일 이름의 변수가 있어서 일단 임의의 함수 이름 작성)
-function appleSauce() {
+function totalAmount() {
   let totalAmount = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
   // 반복문 쪼개기
   for (let perf of invoice.performances) {
@@ -93,7 +93,7 @@ function statement(invoice, plays) {
     }석)\n`;
   }
 
-  result += `총액: ${usd(appleSauce())}\n`; // totalAmount 변수 인라인하여 제거
+  result += `총액: ${usd(totalAmount())}\n`; // totalAmount 변수 인라인하여 제거
   result += `적립 포인트: ${totalVolumeCredits()}점\n`; // volumeCredits 변수 인라인하여 제거
   return result;
 }
