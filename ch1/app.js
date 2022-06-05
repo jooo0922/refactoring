@@ -15,10 +15,13 @@ function statement(invoice, plays) {
   // 함수 추출하기
   // 새 함수 안에서 값을 변경하지 않는 변수는 매개변수로 전달
   // 자바스크립트같은 동적타입언어는 변수명을 지정할 때 타입이 드러나도록 하는 게 좋음. (하나의 performance 객체라는 것을 표현하기 위해 부정관사 a 를 접두어로 붙임.)
-  function amountFor(aPerformance, play) {
+  function amountFor(aPerformance) {
+    // 불필요한 매개변수 삭제
     let result = 0; // 변수를 명확한 이름으로 변경함.
 
-    switch (play.type) {
+    switch (
+      playFor(aPerformance).type // 변수 인라인
+    ) {
       case "tragedy": // 비극
         result = 40000;
         if (aPerformance.audience > 30) {
@@ -33,7 +36,7 @@ function statement(invoice, plays) {
         result += 300 * aPerformance.audience;
         break;
       default:
-        throw new Error(`알 수 없는 장르: ${play.type}`);
+        throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`); // 변수 인라인
     }
 
     return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
@@ -49,7 +52,7 @@ function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf, playFor(perf)); // 추출한 함수 이용, 변수 인라인
+    let thisAmount = amountFor(perf); // 불필요한 매개변수 삭제
 
     // 포인트를 적립한다.
     volumeCredits += Math.max(perf.audience - 30, 0);
