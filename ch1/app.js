@@ -61,14 +61,21 @@ function usd(aNumber) {
   }).format(aNumber / 100); // amountFor() 에서 센트 단위 정수로 계산해주는 금액을 100으로 나눠서 달러 단위로 변환하는 작업까지 추출함수 내에서 처리함.
 }
 
+// 포인트 적립 누적계산 함수 추출
+function totalVolumeCredits() {
+  let volumeCredits = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
+  // 반복문 쪼개기
+  for (let perf of invoice.performances) {
+    volumeCredits += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
+  }
+  return volumeCredits;
+}
+
 function statement(invoice, plays) {
   let totalAmount = 0;
-  let volumeCredits = 0;
   let result = `청구 내역 (고객명: ${invoice.customer})\n`;
 
   for (let perf of invoice.performances) {
-    volumeCredits += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
-
     // 청구 내역을 출력한다.
     // 변수 인라인
     result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${
@@ -77,6 +84,8 @@ function statement(invoice, plays) {
     }석)\n`;
     totalAmount += amountFor(perf); // thisAmount 변수 인라인
   }
+
+  let volumeCredits = totalVolumeCredits();
   result += `총액: ${usd(totalAmount)}\n`;
   result += `적립 포인트: ${volumeCredits}점\n`;
   return result;
