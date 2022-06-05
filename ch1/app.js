@@ -42,13 +42,14 @@ function amountFor(aPerformance) {
 }
 
 // 적립 포인트 누적 계산 함수 추출
-function volumeCreditsFor(perf) {
-  let volumeCredits = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
-  volumeCredits += Math.max(perf.audience - 30, 0);
-  if ("comedy" === playFor(perf).type)
-    volumeCredits += Math.floor(perf.audience / 5);
+// 매개변수 이름 변경 (타입이 드러나도록)
+function volumeCreditsFor(aPerformance) {
+  let result = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
+  result += Math.max(aPerformance.audience - 30, 0);
+  if ("comedy" === playFor(aPerformance).type)
+    result += Math.floor(aPerformance.audience / 5);
 
-  return volumeCredits;
+  return result; // 반환값 변수명은 가급적 'result'
 }
 
 function statement(invoice, plays) {
