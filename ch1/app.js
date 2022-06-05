@@ -41,6 +41,16 @@ function amountFor(aPerformance) {
   return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
 }
 
+// 적립 포인트 누적 계산 함수 추출
+function volumeCreditsFor(perf) {
+  let volumeCredits = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
+  volumeCredits += Math.max(perf.audience - 30, 0);
+  if ("comedy" === playFor(perf).type)
+    volumeCredits += Math.floor(perf.audience / 5);
+
+  return volumeCredits;
+}
+
 function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -52,11 +62,7 @@ function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    // 포인트를 적립한다.
-    volumeCredits += Math.max(perf.audience - 30, 0);
-    // 희극 관객 5명마다 추가 포인트를 제공한다.
-    if ("comedy" === playFor(perf).type)
-      volumeCredits += Math.floor(perf.audience / 5); // 변수 인라인
+    volumeCredits += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
 
     // 청구 내역을 출력한다.
     // 변수 인라인
