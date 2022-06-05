@@ -5,6 +5,32 @@ const fs = require("fs");
 const invoice = JSON.parse(fs.readFileSync("./invoices.json", "utf8"));
 const plays = JSON.parse(fs.readFileSync("./plays.json", "utf8"));
 
+// 함수 추출하기
+// 새 함수 안에서 값을 변경하지 않는 변수는 매개변수로 전달
+function amountFor(perf, play) {
+  let thisAmount = 0; // 새 함수 안에서 값이 바뀌는 변수를 초기화하는 코드
+
+  switch (play.type) {
+    case "tragedy": // 비극
+      thisAmount = 40000;
+      if (perf.audience > 30) {
+        thisAmount += 1000 * (perf.audience - 30);
+      }
+      break;
+    case "comedy": // 희극
+      thisAmount = 30000;
+      if (perf.audience > 20) {
+        thisAmount += 10000 + 500 * (perf.audience - 20);
+      }
+      thisAmount += 300 * perf.audience;
+      break;
+    default:
+      throw new Error(`알 수 없는 장르: ${play.type}`);
+  }
+
+  return thisAmount; // 새 함수 안에서 값이 바뀌는 변수 반환
+}
+
 function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -17,25 +43,7 @@ function statement(invoice, plays) {
 
   for (let perf of invoice.performances) {
     const play = plays[perf.playID];
-    let thisAmount = 0;
-
-    switch (play.type) {
-      case "tragedy": // 비극
-        thisAmount = 40000;
-        if (perf.audience > 30) {
-          thisAmount += 1000 * (perf.audience - 30);
-        }
-        break;
-      case "comedy": // 희극
-        thisAmount = 30000;
-        if (perf.audience > 20) {
-          thisAmount += 10000 + 500 * (perf.audience - 20);
-        }
-        thisAmount += 300 * perf.audience;
-        break;
-      default:
-        throw new Error(`알 수 없는 장르: ${play.type}`);
-    }
+    let thisAmount = amountFor(perf, play); //
 
     // 포인트를 적립한다.
     volumeCredits += Math.max(perf.audience - 30, 0);
