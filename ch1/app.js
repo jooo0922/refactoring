@@ -11,9 +11,16 @@ function statement(invoice, plays) {
   statementData.performances = invoice.performances.map(enrichPerformance); // 공연객체 데이터 얕은 복사하여 전달 (원본 데이터 불변성 유지)
   return renderPlainText(statementData, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
 
+  // 중간 데이터로 넘기는 공연객체에 연극 정보를 추가하여 전달
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
+    result.play = playFor(result); // 중간 데이터에 연극 정보를 저장
     return result;
+  }
+
+  // renderPlainText() 의 중첩함수였던 playFor() 를 statement() 로 옮김
+  function playFor(aPerformance) {
+    return plays[aPerformance.playID];
   }
 }
 
@@ -26,7 +33,8 @@ function renderPlainText(data, plays) {
   for (let perf of data.performances) {
     // 청구 내역을 출력한다.
     // 변수 인라인
-    result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${
+    // playFor() 대신 중간데이터를 사용하도록 대체
+    result += ` ${perf.play.name}: ${usd(amountFor(perf))} (${
       // thisAmount 변수 인라인
       perf.audience
     }석)\n`;
@@ -50,8 +58,10 @@ function renderPlainText(data, plays) {
   // 포인트 적립 누적계산 함수 추출
   function totalVolumeCredits() {
     let result = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
+
     // 반복문 쪼개기
     // 공연 정보를 중간 데이터로부터 얻음
+    // playFor() 대신 중간데이터를 사용하도록 대체
     for (let perf of data.performances) {
       result += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
     }
@@ -72,16 +82,10 @@ function renderPlainText(data, plays) {
   function volumeCreditsFor(aPerformance) {
     let result = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
     result += Math.max(aPerformance.audience - 30, 0);
-    if ("comedy" === playFor(aPerformance).type)
+    if ("comedy" === aPerformance.play.type)
       result += Math.floor(aPerformance.audience / 5);
 
     return result; // 반환값 변수명은 가급적 'result'
-  }
-
-  // play 는 perf(aPerformance) 안에서 받아오는 값이라 애초에 매개변수로 넘겨줄 필요가 없었음.
-  // 이런 임시변수들은 질의함수로 바꿔줌.
-  function playFor(aPerformance) {
-    return plays[aPerformance.playID];
   }
 
   // 함수 추출하기
@@ -92,7 +96,7 @@ function renderPlainText(data, plays) {
     let result = 0; // 변수를 명확한 이름으로 변경함.
 
     switch (
-      playFor(aPerformance).type // 변수 인라인
+      aPerformance.play.type // playFor() 대신 중간데이터를 사용하도록 대체
     ) {
       case "tragedy": // 비극
         result = 40000;
