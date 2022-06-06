@@ -6,12 +6,17 @@ const invoice = JSON.parse(fs.readFileSync("./invoices.json", "utf8"));
 const plays = JSON.parse(fs.readFileSync("./plays.json", "utf8"));
 
 function statement(invoice, plays) {
+  return renderPlainText(createStatementData(invoice, plays)); // 본문(내부 코드) 전체를 별도 함수로 추출
+}
+
+// 중간데이터 생성 전담 함수 추출
+function createStatementData(invoice, plays) {
   const statementData = {}; // 중간 데이터 구조를 만들어서 인수로 전달
   statementData.customer = invoice.customer; // 고객 데이터를 중간 데이터로 옮겨서 전달
   statementData.performances = invoice.performances.map(enrichPerformance); // 공연객체 데이터 얕은 복사하여 전달 (원본 데이터 불변성 유지)
   statementData.totalAmount = totalAmount(statementData); // 총합 구하는 부분을 옮김
   statementData.totalVolumeCredits = totalVolumeCredits(statementData); // 총합 구하는 부분 옮김
-  return renderPlainText(statementData, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
+  return statementData;
 
   // 중간 데이터로 넘기는 공연객체에 연극 정보를 추가하여 전달
   function enrichPerformance(aPerformance) {
@@ -69,32 +74,18 @@ function statement(invoice, plays) {
 
   // totalAmount 함수 추출 (동일 이름의 변수가 있어서 일단 임의의 함수 이름 작성)
   function totalAmount(data) {
-    let result = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
-    // 반복문 쪼개기
-    // 공연 정보를 중간 데이터로부터 얻음
-    for (let perf of data.performances) {
-      result += perf.amount; // amountFor() 대신 중간데이터를 사용하도록 대체
-    }
-    return result; // 반환값 변수명은 가급적 'result'
+    return data.performances.reduce((total, p) => total + p.amount, 0); // 반복문을 파이프라인으로 바꿈 (누산값을 계산하는 reduce 배열 메서드 사용)
   }
 
   // 포인트 적립 누적계산 함수 추출
   function totalVolumeCredits(data) {
-    let result = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
-
-    // 반복문 쪼개기
-    // 공연 정보를 중간 데이터로부터 얻음
-    // playFor() 대신 중간데이터를 사용하도록 대체
-    for (let perf of data.performances) {
-      result += perf.volumeCredits; // volumeCreditsFor() 대신 중간데이터를 사용하도록 대체
-    }
-    return result; // 반환값 변수명은 가급적 'result'
+    return data.performances.reduce((total, p) => total + p.volumeCredits, 0); // 반복문을 파이프라이으로 바꿈
   }
 }
 
 // 본문(내부 코드) 전체를 별도 함수로 추출
 // 중간 데이터 구조를 인수로 전달받음
-function renderPlainText(data, plays) {
+function renderPlainText(data) {
   let result = `청구 내역 (고객명: ${data.customer})\n`; // 고객 데이터를 중간 데이터로부터 얻음
 
   // 공연 정보를 중간 데이터로부터 얻음
