@@ -9,6 +9,8 @@ function statement(invoice, plays) {
   const statementData = {}; // 중간 데이터 구조를 만들어서 인수로 전달
   statementData.customer = invoice.customer; // 고객 데이터를 중간 데이터로 옮겨서 전달
   statementData.performances = invoice.performances.map(enrichPerformance); // 공연객체 데이터 얕은 복사하여 전달 (원본 데이터 불변성 유지)
+  statementData.totalAmount = totalAmount(statementData); // 총합 구하는 부분을 옮김
+  statementData.totalVolumeCredits = totalVolumeCredits(statementData); // 총합 구하는 부분 옮김
   return renderPlainText(statementData, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
 
   // 중간 데이터로 넘기는 공연객체에 연극 정보를 추가하여 전달
@@ -64,6 +66,30 @@ function statement(invoice, plays) {
 
     return result; // 반환값 변수명은 가급적 'result'
   }
+
+  // totalAmount 함수 추출 (동일 이름의 변수가 있어서 일단 임의의 함수 이름 작성)
+  function totalAmount(data) {
+    let result = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
+    // 반복문 쪼개기
+    // 공연 정보를 중간 데이터로부터 얻음
+    for (let perf of data.performances) {
+      result += perf.amount; // amountFor() 대신 중간데이터를 사용하도록 대체
+    }
+    return result; // 반환값 변수명은 가급적 'result'
+  }
+
+  // 포인트 적립 누적계산 함수 추출
+  function totalVolumeCredits(data) {
+    let result = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
+
+    // 반복문 쪼개기
+    // 공연 정보를 중간 데이터로부터 얻음
+    // playFor() 대신 중간데이터를 사용하도록 대체
+    for (let perf of data.performances) {
+      result += perf.volumeCredits; // volumeCreditsFor() 대신 중간데이터를 사용하도록 대체
+    }
+    return result; // 반환값 변수명은 가급적 'result'
+  }
 }
 
 // 본문(내부 코드) 전체를 별도 함수로 추출
@@ -82,33 +108,9 @@ function renderPlainText(data, plays) {
     }석)\n`;
   }
 
-  result += `총액: ${usd(totalAmount())}\n`; // totalAmount 변수 인라인하여 제거
-  result += `적립 포인트: ${totalVolumeCredits()}점\n`; // volumeCredits 변수 인라인하여 제거
+  result += `총액: ${usd(data.totalAmount)}\n`; // totalAmount() 대신 중간데이터 사용
+  result += `적립 포인트: ${data.totalVolumeCredits}점\n`; // totalVolumeCredits() 대신 중간데이터 사용
   return result;
-
-  // totalAmount 함수 추출 (동일 이름의 변수가 있어서 일단 임의의 함수 이름 작성)
-  function totalAmount() {
-    let result = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
-    // 반복문 쪼개기
-    // 공연 정보를 중간 데이터로부터 얻음
-    for (let perf of data.performances) {
-      result += perf.amount; // amountFor() 대신 중간데이터를 사용하도록 대체
-    }
-    return result; // 반환값 변수명은 가급적 'result'
-  }
-
-  // 포인트 적립 누적계산 함수 추출
-  function totalVolumeCredits() {
-    let result = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
-
-    // 반복문 쪼개기
-    // 공연 정보를 중간 데이터로부터 얻음
-    // playFor() 대신 중간데이터를 사용하도록 대체
-    for (let perf of data.performances) {
-      result += perf.volumeCredits; // volumeCreditsFor() 대신 중간데이터를 사용하도록 대체
-    }
-    return result; // 반환값 변수명은 가급적 'result'
-  }
 
   // format 함수를 저장한 함수변수인 임시변수 format을 실제 함수로 추출하고, 화폐단위를 달러로 변환하는 기능에 맞게 이름을 usd 로 변경함.
   function usd(aNumber) {
