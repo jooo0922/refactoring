@@ -15,12 +15,43 @@ function statement(invoice, plays) {
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = playFor(result); // 중간 데이터에 연극 정보를 저장
+    result.amount = amountFor(result); // 중간 데이터에 가격 데이터 저장
     return result;
   }
 
   // renderPlainText() 의 중첩함수였던 playFor() 를 statement() 로 옮김
   function playFor(aPerformance) {
     return plays[aPerformance.playID];
+  }
+
+  // 함수 추출하기
+  // 새 함수 안에서 값을 변경하지 않는 변수는 매개변수로 전달
+  // 자바스크립트같은 동적타입언어는 변수명을 지정할 때 타입이 드러나도록 하는 게 좋음. (하나의 performance 객체라는 것을 표현하기 위해 부정관사 a 를 접두어로 붙임.)
+  function amountFor(aPerformance) {
+    // 불필요한 매개변수 삭제
+    let result = 0; // 변수를 명확한 이름으로 변경함.
+
+    switch (
+      aPerformance.play.type // playFor() 대신 중간데이터를 사용하도록 대체
+    ) {
+      case "tragedy": // 비극
+        result = 40000;
+        if (aPerformance.audience > 30) {
+          result += 1000 * (aPerformance.audience - 30);
+        }
+        break;
+      case "comedy": // 희극
+        result = 30000;
+        if (aPerformance.audience > 20) {
+          result += 10000 + 500 * (aPerformance.audience - 20);
+        }
+        result += 300 * aPerformance.audience;
+        break;
+      default:
+        throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`); // 변수 인라인
+    }
+
+    return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
   }
 }
 
@@ -32,9 +63,9 @@ function renderPlainText(data, plays) {
   // 공연 정보를 중간 데이터로부터 얻음
   for (let perf of data.performances) {
     // 청구 내역을 출력한다.
-    // 변수 인라인
     // playFor() 대신 중간데이터를 사용하도록 대체
-    result += ` ${perf.play.name}: ${usd(amountFor(perf))} (${
+    // amountFor() 대신 중간데이터를 사용하도록 대체
+    result += ` ${perf.play.name}: ${usd(perf.amount)} (${
       // thisAmount 변수 인라인
       perf.audience
     }석)\n`;
@@ -50,7 +81,7 @@ function renderPlainText(data, plays) {
     // 반복문 쪼개기
     // 공연 정보를 중간 데이터로부터 얻음
     for (let perf of data.performances) {
-      result += amountFor(perf); // thisAmount 변수 인라인
+      result += perf.amount; // amountFor() 대신 중간데이터를 사용하도록 대체
     }
     return result; // 반환값 변수명은 가급적 'result'
   }
@@ -86,36 +117,6 @@ function renderPlainText(data, plays) {
       result += Math.floor(aPerformance.audience / 5);
 
     return result; // 반환값 변수명은 가급적 'result'
-  }
-
-  // 함수 추출하기
-  // 새 함수 안에서 값을 변경하지 않는 변수는 매개변수로 전달
-  // 자바스크립트같은 동적타입언어는 변수명을 지정할 때 타입이 드러나도록 하는 게 좋음. (하나의 performance 객체라는 것을 표현하기 위해 부정관사 a 를 접두어로 붙임.)
-  function amountFor(aPerformance) {
-    // 불필요한 매개변수 삭제
-    let result = 0; // 변수를 명확한 이름으로 변경함.
-
-    switch (
-      aPerformance.play.type // playFor() 대신 중간데이터를 사용하도록 대체
-    ) {
-      case "tragedy": // 비극
-        result = 40000;
-        if (aPerformance.audience > 30) {
-          result += 1000 * (aPerformance.audience - 30);
-        }
-        break;
-      case "comedy": // 희극
-        result = 30000;
-        if (aPerformance.audience > 20) {
-          result += 10000 + 500 * (aPerformance.audience - 20);
-        }
-        result += 300 * aPerformance.audience;
-        break;
-      default:
-        throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`); // 변수 인라인
-    }
-
-    return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
   }
 }
 
