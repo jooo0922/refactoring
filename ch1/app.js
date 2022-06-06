@@ -6,11 +6,13 @@ const invoice = JSON.parse(fs.readFileSync("./invoices.json", "utf8"));
 const plays = JSON.parse(fs.readFileSync("./plays.json", "utf8"));
 
 function statement(invoice, plays) {
-  return renderPlainText(invoice, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
+  const statementData = {}; // 중간 데이터 구조를 만들어서 인수로 전달
+  return renderPlainText(statementData, invoice, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
 }
 
 // 본문(내부 코드) 전체를 별도 함수로 추출
-function renderPlainText(invoice, plays) {
+// 중간 데이터 구조를 인수로 전달받음
+function renderPlainText(data, invoice, plays) {
   let result = `청구 내역 (고객명: ${invoice.customer})\n`;
 
   for (let perf of invoice.performances) {
