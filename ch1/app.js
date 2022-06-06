@@ -16,6 +16,7 @@ function statement(invoice, plays) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = playFor(result); // 중간 데이터에 연극 정보를 저장
     result.amount = amountFor(result); // 중간 데이터에 가격 데이터 저장
+    result.volumeCredits = volumeCreditsFor(result); // 중간 데이터에 적립 포인트 저장
     return result;
   }
 
@@ -52,6 +53,16 @@ function statement(invoice, plays) {
     }
 
     return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
+  }
+
+  // 적립 포인트 누적 계산 함수 추출
+  function volumeCreditsFor(aPerformance) {
+    let result = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
+    result += Math.max(aPerformance.audience - 30, 0);
+    if ("comedy" === aPerformance.play.type)
+      result += Math.floor(aPerformance.audience / 5);
+
+    return result; // 반환값 변수명은 가급적 'result'
   }
 }
 
@@ -94,7 +105,7 @@ function renderPlainText(data, plays) {
     // 공연 정보를 중간 데이터로부터 얻음
     // playFor() 대신 중간데이터를 사용하도록 대체
     for (let perf of data.performances) {
-      result += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
+      result += perf.volumeCredits; // volumeCreditsFor() 대신 중간데이터를 사용하도록 대체
     }
     return result; // 반환값 변수명은 가급적 'result'
   }
@@ -106,17 +117,6 @@ function renderPlainText(data, plays) {
       currency: "USD",
       minimumFractionDigits: 2,
     }).format(aNumber / 100); // amountFor() 에서 센트 단위 정수로 계산해주는 금액을 100으로 나눠서 달러 단위로 변환하는 작업까지 추출함수 내에서 처리함.
-  }
-
-  // 적립 포인트 누적 계산 함수 추출
-  // 매개변수 이름 변경 (타입이 드러나도록)
-  function volumeCreditsFor(aPerformance) {
-    let result = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
-    result += Math.max(aPerformance.audience - 30, 0);
-    if ("comedy" === aPerformance.play.type)
-      result += Math.floor(aPerformance.audience / 5);
-
-    return result; // 반환값 변수명은 가급적 'result'
   }
 }
 
