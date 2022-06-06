@@ -8,8 +8,13 @@ const plays = JSON.parse(fs.readFileSync("./plays.json", "utf8"));
 function statement(invoice, plays) {
   const statementData = {}; // 중간 데이터 구조를 만들어서 인수로 전달
   statementData.customer = invoice.customer; // 고객 데이터를 중간 데이터로 옮겨서 전달
-  statementData.performances = invoice.performances; // 공연 정보를 중간 데이터로 옮겨서 전달
+  statementData.performances = invoice.performances.map(enrichPerformance); // 공연객체 데이터 얕은 복사하여 전달 (원본 데이터 불변성 유지)
   return renderPlainText(statementData, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
+
+  function enrichPerformance(aPerformance) {
+    const result = Object.assign({}, aPerformance); // 얕은 복사 수행
+    return result;
+  }
 }
 
 // 본문(내부 코드) 전체를 별도 함수로 추출
