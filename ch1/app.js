@@ -7,15 +7,18 @@ const plays = JSON.parse(fs.readFileSync("./plays.json", "utf8"));
 
 function statement(invoice, plays) {
   const statementData = {}; // 중간 데이터 구조를 만들어서 인수로 전달
-  return renderPlainText(statementData, invoice, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
+  statementData.customer = invoice.customer; // 고객 데이터를 중간 데이터로 옮겨서 전달
+  statementData.performances = invoice.performances; // 공연 정보를 중간 데이터로 옮겨서 전달
+  return renderPlainText(statementData, plays); // 본문(내부 코드) 전체를 별도 함수로 추출
 }
 
 // 본문(내부 코드) 전체를 별도 함수로 추출
 // 중간 데이터 구조를 인수로 전달받음
-function renderPlainText(data, invoice, plays) {
-  let result = `청구 내역 (고객명: ${invoice.customer})\n`;
+function renderPlainText(data, plays) {
+  let result = `청구 내역 (고객명: ${data.customer})\n`; // 고객 데이터를 중간 데이터로부터 얻음
 
-  for (let perf of invoice.performances) {
+  // 공연 정보를 중간 데이터로부터 얻음
+  for (let perf of data.performances) {
     // 청구 내역을 출력한다.
     // 변수 인라인
     result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${
@@ -32,7 +35,8 @@ function renderPlainText(data, invoice, plays) {
   function totalAmount() {
     let result = 0; // 문장 슬라이드하기 (변수 선언을 반복문 앞으로 이동)
     // 반복문 쪼개기
-    for (let perf of invoice.performances) {
+    // 공연 정보를 중간 데이터로부터 얻음
+    for (let perf of data.performances) {
       result += amountFor(perf); // thisAmount 변수 인라인
     }
     return result; // 반환값 변수명은 가급적 'result'
@@ -42,7 +46,8 @@ function renderPlainText(data, invoice, plays) {
   function totalVolumeCredits() {
     let result = 0; // 문장 슬라이드하기(변수 선언을 반복문 앞으로 이동)
     // 반복문 쪼개기
-    for (let perf of invoice.performances) {
+    // 공연 정보를 중간 데이터로부터 얻음
+    for (let perf of data.performances) {
       result += volumeCreditsFor(perf); // 추출한 함수를 이용해 값을 누적
     }
     return result; // 반환값 변수명은 가급적 'result'
