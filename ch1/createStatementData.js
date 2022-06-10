@@ -2,8 +2,9 @@
 
 // 조건부 로직을 다형성으로 바꾸기 위해 상속 계층 클래스 생성 (공연 관련 데이터 계산하는 함수들로 구성)
 class PerformanceCalculator {
-  constructor(aPerformance) {
+  constructor(aPerformance, aPlay) {
     this.performance = aPerformance;
+    this.play = aPlay;
   }
 }
 
@@ -18,9 +19,12 @@ export default function createStatementData(invoice, plays) {
 
   // 중간 데이터로 넘기는 공연객체에 연극 정보를 추가하여 전달
   function enrichPerformance(aPerformance) {
-    const calculator = new PerformanceCalculator(aPerformance); // 공연료 계산기 생성
+    const calculator = new PerformanceCalculator(
+      aPerformance,
+      playFor(aPerformance) // 공연 정보를 계산기로 전달
+    ); // 공연료 계산기 생성
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
-    result.play = playFor(result); // 중간 데이터에 연극 정보를 저장
+    result.play = calculator.play; // 함수 선언 바꾸기
     result.amount = amountFor(result); // 중간 데이터에 가격 데이터 저장
     result.volumeCredits = volumeCreditsFor(result); // 중간 데이터에 적립 포인트 저장
     return result;
