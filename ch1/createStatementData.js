@@ -46,6 +46,21 @@ class PerformanceCalculator {
   }
 }
 
+// 다형성 지원을 위한 팩토리 함수
+function createPerformanceCalculator(aPerformance, aPlay) {
+  switch (aPlay.type) {
+    case "tragedy":
+      return new TragedyCalculator(aPerformance, aPlay);
+    case "comedy":
+      return new ComedyCalculator(aPerformance, aPlay);
+    default:
+      throw new Error(`알 수 없는 장르: ${aPlay.type}`);
+  }
+}
+
+class TragedyCalculator extends PerformanceCalculator {}
+class ComedyCalculator extends PerformanceCalculator {}
+
 // 중간데이터 생성 전담 함수 추출
 export default function createStatementData(invoice, plays) {
   const result = {}; // 중간 데이터 구조를 만들어서 인수로 전달
@@ -57,10 +72,10 @@ export default function createStatementData(invoice, plays) {
 
   // 중간 데이터로 넘기는 공연객체에 연극 정보를 추가하여 전달
   function enrichPerformance(aPerformance) {
-    const calculator = new PerformanceCalculator(
+    const calculator = createPerformanceCalculator(
       aPerformance,
-      playFor(aPerformance) // 공연 정보를 계산기로 전달
-    ); // 공연료 계산기 생성
+      playFor(aPerformance)
+    ); // 생성자를 패토리 함수로 바꾸기
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = calculator.play; // 함수 선언 바꾸기
     result.amount = calculator.amount; // 함수를 인라인
