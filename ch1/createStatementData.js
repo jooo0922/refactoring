@@ -16,12 +16,7 @@ class PerformanceCalculator {
 
   // volumeCreditsFor() 함수 계산기 클래스로 옮기기
   get volumeCredits() {
-    let result = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
-    result += Math.max(this.performance.audience - 30, 0);
-    if ("comedy" === this.play.type)
-      result += Math.floor(this.performance.audience / 5);
-
-    return result; // 반환값 변수명은 가급적 'result'
+    return Math.max(this.performance.audience - 30, 0); // 적립금 계산 로직이 다른 희극을 제외한 나머지 장르의 적립금 계산 로직만 슈퍼클래스에 남겨둠.
   }
 }
 
@@ -55,6 +50,11 @@ class ComedyCalculator extends PerformanceCalculator {
     }
     result += 300 * this.performance.audience;
     return result;
+  }
+
+  get volumeCredits() {
+    // 희극 장르의 적립금 계산 로직이 다르므로, 슈퍼클래스에서 계산된 적립금을 상속받아 추가 계산을 처리하는 로직을 내려줌.
+    return super.volumeCredits + Math.floor(this.performance.audience / 5);
   }
 }
 
