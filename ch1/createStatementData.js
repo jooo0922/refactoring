@@ -9,30 +9,9 @@ class PerformanceCalculator {
 
   // amountFor() 함수 계산기 클래스로 옮기기
   get amount() {
-    // 불필요한 매개변수 삭제
-    let result = 0; // 변수를 명확한 이름으로 변경함.
-
-    switch (
-      this.play.type // playFor() 대신 중간데이터를 사용하도록 대체
-    ) {
-      case "tragedy": // 비극
-        result = 40000;
-        if (this.performance.audience > 30) {
-          result += 1000 * (this.performance.audience - 30);
-        }
-        break;
-      case "comedy": // 희극
-        result = 30000;
-        if (this.performance.audience > 20) {
-          result += 10000 + 500 * (this.performance.audience - 20);
-        }
-        result += 300 * this.performance.audience;
-        break;
-      default:
-        throw new Error(`알 수 없는 장르: ${this.play.type}`); // 변수 인라인
-    }
-
-    return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
+    // amount() 함수는 각각의 서브클래스로 로직을 이동해서 오버라이드 시키므로, 슈퍼클래스의 로직이 실행될 일은 없음.
+    // 그러나, 이 내용을 슈퍼클래스 안에 명시적으로 남겨두기 위해 아래와 같이 throw new Error() 를 작성해둔 것.
+    throw new Error("서브클래스에서 처리하도록 설계되었습니다.");
   }
 
   // volumeCreditsFor() 함수 계산기 클래스로 옮기기
@@ -58,8 +37,26 @@ function createPerformanceCalculator(aPerformance, aPlay) {
   }
 }
 
-class TragedyCalculator extends PerformanceCalculator {}
-class ComedyCalculator extends PerformanceCalculator {}
+class TragedyCalculator extends PerformanceCalculator {
+  // amount 메서드를 서브클래스에 정의하기만 해도 슈퍼클래스의 amount 메서드의 로직이 오버라이드됨.
+  get amount() {
+    let result = 40000;
+    if (this.performance.audience > 30) {
+      result += 1000 * (this.performance.audience - 30);
+    }
+    return result;
+  }
+}
+class ComedyCalculator extends PerformanceCalculator {
+  get amount() {
+    let result = 30000;
+    if (this.performance.audience > 20) {
+      result += 10000 + 500 * (this.performance.audience - 20);
+    }
+    result += 300 * this.performance.audience;
+    return result;
+  }
+}
 
 // 중간데이터 생성 전담 함수 추출
 export default function createStatementData(invoice, plays) {
