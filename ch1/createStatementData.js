@@ -1,7 +1,7 @@
 "use strict";
 
 // 중간데이터 생성 전담 함수 추출
-exports.createStatementData = function (invoice, plays) {
+export default function createStatementData(invoice, plays) {
   const result = {}; // 중간 데이터 구조를 만들어서 인수로 전달
   result.customer = invoice.customer; // 고객 데이터를 중간 데이터로 옮겨서 전달
   result.performances = invoice.performances.map(enrichPerformance); // 공연객체 데이터 얕은 복사하여 전달 (원본 데이터 불변성 유지)
@@ -72,4 +72,4 @@ exports.createStatementData = function (invoice, plays) {
   function totalVolumeCredits(data) {
     return data.performances.reduce((total, p) => total + p.volumeCredits, 0); // 반복문을 파이프라이으로 바꿈
   }
-};
+}
