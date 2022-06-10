@@ -6,6 +6,34 @@ class PerformanceCalculator {
     this.performance = aPerformance;
     this.play = aPlay;
   }
+
+  // amountFor() 함수 계산기 클래스로 옮기기
+  get amount() {
+    // 불필요한 매개변수 삭제
+    let result = 0; // 변수를 명확한 이름으로 변경함.
+
+    switch (
+      this.play.type // playFor() 대신 중간데이터를 사용하도록 대체
+    ) {
+      case "tragedy": // 비극
+        result = 40000;
+        if (this.performance.audience > 30) {
+          result += 1000 * (this.performance.audience - 30);
+        }
+        break;
+      case "comedy": // 희극
+        result = 30000;
+        if (this.performance.audience > 20) {
+          result += 10000 + 500 * (this.performance.audience - 20);
+        }
+        result += 300 * this.performance.audience;
+        break;
+      default:
+        throw new Error(`알 수 없는 장르: ${this.play.type}`); // 변수 인라인
+    }
+
+    return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
+  }
 }
 
 // 중간데이터 생성 전담 함수 추출
@@ -39,30 +67,8 @@ export default function createStatementData(invoice, plays) {
   // 새 함수 안에서 값을 변경하지 않는 변수는 매개변수로 전달
   // 자바스크립트같은 동적타입언어는 변수명을 지정할 때 타입이 드러나도록 하는 게 좋음. (하나의 performance 객체라는 것을 표현하기 위해 부정관사 a 를 접두어로 붙임.)
   function amountFor(aPerformance) {
-    // 불필요한 매개변수 삭제
-    let result = 0; // 변수를 명확한 이름으로 변경함.
-
-    switch (
-      aPerformance.play.type // playFor() 대신 중간데이터를 사용하도록 대체
-    ) {
-      case "tragedy": // 비극
-        result = 40000;
-        if (aPerformance.audience > 30) {
-          result += 1000 * (aPerformance.audience - 30);
-        }
-        break;
-      case "comedy": // 희극
-        result = 30000;
-        if (aPerformance.audience > 20) {
-          result += 10000 + 500 * (aPerformance.audience - 20);
-        }
-        result += 300 * aPerformance.audience;
-        break;
-      default:
-        throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`); // 변수 인라인
-    }
-
-    return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
+    return new PerformanceCalculator(aPerformance, playFor(aPerformance))
+      .amount; // 원본 함수가 클래스로 옮긴 함수를 위임하도록 수정
   }
 
   // 적립 포인트 누적 계산 함수 추출
