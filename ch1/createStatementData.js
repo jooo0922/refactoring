@@ -34,6 +34,16 @@ class PerformanceCalculator {
 
     return result; // 함수의 반환 값은 가급적 'result' 라는 이름으로 변수명을 지을 것.
   }
+
+  // volumeCreditsFor() 함수 계산기 클래스로 옮기기
+  get volumeCredits() {
+    let result = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
+    result += Math.max(this.performance.audience - 30, 0);
+    if ("comedy" === this.play.type)
+      result += Math.floor(this.performance.audience / 5);
+
+    return result; // 반환값 변수명은 가급적 'result'
+  }
 }
 
 // 중간데이터 생성 전담 함수 추출
@@ -53,32 +63,14 @@ export default function createStatementData(invoice, plays) {
     ); // 공연료 계산기 생성
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = calculator.play; // 함수 선언 바꾸기
-    result.amount = amountFor(result); // 중간 데이터에 가격 데이터 저장
-    result.volumeCredits = volumeCreditsFor(result); // 중간 데이터에 적립 포인트 저장
+    result.amount = calculator.amount; // 함수를 인라인
+    result.volumeCredits = calculator.volumeCredits; // 함수를 인라인
     return result;
   }
 
   // renderPlainText() 의 중첩함수였던 playFor() 를 statement() 로 옮김
   function playFor(aPerformance) {
     return plays[aPerformance.playID];
-  }
-
-  // 함수 추출하기
-  // 새 함수 안에서 값을 변경하지 않는 변수는 매개변수로 전달
-  // 자바스크립트같은 동적타입언어는 변수명을 지정할 때 타입이 드러나도록 하는 게 좋음. (하나의 performance 객체라는 것을 표현하기 위해 부정관사 a 를 접두어로 붙임.)
-  function amountFor(aPerformance) {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance))
-      .amount; // 원본 함수가 클래스로 옮긴 함수를 위임하도록 수정
-  }
-
-  // 적립 포인트 누적 계산 함수 추출
-  function volumeCreditsFor(aPerformance) {
-    let result = 0; // 추출된 함수를 돌때마다 volumeCredits 복제본 초기화
-    result += Math.max(aPerformance.audience - 30, 0);
-    if ("comedy" === aPerformance.play.type)
-      result += Math.floor(aPerformance.audience / 5);
-
-    return result; // 반환값 변수명은 가급적 'result'
   }
 
   // totalAmount 함수 추출 (동일 이름의 변수가 있어서 일단 임의의 함수 이름 작성)
