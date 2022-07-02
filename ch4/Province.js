@@ -1,7 +1,7 @@
 import { Producer } from "./Producer.js";
 
 // Province 클래스 생성자의 인수로 쓸 JSON 데이터를 생성하는 함수
-function sampleProvinceData() {
+export function sampleProvinceData() {
   return {
     name: "Asia",
     producers: [
@@ -15,7 +15,7 @@ function sampleProvinceData() {
 }
 
 // JSON 데이터로부터 지역 정보를 읽어오는 클래스
-class Province {
+export class Province {
   constructor(doc) {
     this._name = doc.name;
     this._producers = [];
