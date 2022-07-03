@@ -43,6 +43,31 @@ describe("province", function () {
   });
 });
 
+// 경계지점 조건 검사하기
+// 생산자가 없는 경계지점 상황 테스트
+describe("no producer", function () {
+  // producers 에 아무것도 넣지 않은 빈 배열로 데이터를 전달해서 Province 객체를 생성할 경우,
+  // 이처럼 문제가 생길 수 있는 경계조건을 생각해보고 테스트하면, 예외사항을 어떻게 처리하는 게 좋을지 생각해보기 좋음.
+  let noProducers;
+  beforeEach(function () {
+    const data = {
+      name: "No producers",
+      producers: [],
+      demand: 30,
+      price: 20,
+    };
+    noProducers = new Province(data);
+  });
+
+  it("shortfall", function () {
+    expect(noProducers.shortfall).equal(30);
+  });
+
+  it("profit", function () {
+    expect(noProducers.profit).equal(0);
+  });
+});
+
 /**
  * 테스트에서 흔히 사용되는 패턴
  *
