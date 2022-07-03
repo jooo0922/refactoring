@@ -89,6 +89,24 @@ describe("no producer", function () {
   });
 });
 
+// 테스트 실행 시, '에러(error)'를 '실패(fail)'로 취급하는 모카
+// 생산자에 배열이 아닌 빈 문자열을 넣는 에러 상황 테스트
+describe("string for producers", function () {
+  // 이 단위테스트는 'TypeError: ...is not a function' 이라는
+  // 에러 메시지를 띄우지만, 모카는 이 경우를 전부 '실패(fail)' 로 처리함.
+  // 에러와 실패의 차이점은 p.149 참고!
+  it("", function () {
+    const data = {
+      name: "String producers",
+      producers: "",
+      demand: 30,
+      price: 20,
+    };
+    const prov = new Province(data);
+    expect(prov.shortfall).equal(0);
+  });
+});
+
 /**
  * 테스트에서 흔히 사용되는 패턴
  *
