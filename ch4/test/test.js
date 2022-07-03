@@ -48,6 +48,13 @@ describe("province", function () {
     expect(asia.shortfall).equal(-25);
     expect(asia.profit).equal(0);
   });
+
+  // 수요가 마이너스인 경계조건 테스트
+  it("negative demand", function () {
+    asia.demand = -1;
+    expect(asia.shortfall).equal(-26);
+    expect(asia.profit).equal(-10);
+  });
 });
 
 // 경계지점 조건 검사하기
