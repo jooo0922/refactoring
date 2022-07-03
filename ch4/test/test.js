@@ -17,6 +17,8 @@ describe("province", function () {
   let asia;
   beforeEach(function () {
     // beforeEach() 에 인자로 넣는 콜백함수는 각 단위테스트 바로 직전에 실행됨.
+    // 이런 식으로 beforeEach() 함수 내에서 설정하는 픽스처를 '표준 픽스처' 라고 함.
+    // -> 즉, describe 블록 안의 모든 단위테스트는 모두 똑같은 기준 데이터(픽스처)로부터 시작한다는 뜻임.
     asia = new Province(sampleProvinceData()); // 픽스처 설정
   });
 
@@ -30,4 +32,31 @@ describe("province", function () {
   it("profit", function () {
     expect(asia.profit).equal(230);
   });
+
+  // totalProduction 값 변경 후 부족분과 총 수익 계산 단위테스트 설정
+  it("change production", function () {
+    asia.producers[0].production = 20; // 사용자가 단위테스트에서 직접 픽스처를 수정하는 경우도 많음. ('실행' 단계)
+
+    // '검증' 단계 (아래 코드와 달리 일반적으로 검증은 단위테스트 하나 당 한 번만 하는 게 좋음.)
+    expect(asia.shortfall).equal(-6);
+    expect(asia.profit).equal(292);
+  });
 });
+
+/**
+ * 테스트에서 흔히 사용되는 패턴
+ *
+ * '설정 - 실행 - 검증'
+ *
+ * 1. 설정
+ * 설정은 beforeEach() 에서 각 단위테스트에서
+ * 공통으로 사용할 표준 픽스처 설정하는 걸 말함.
+ *
+ * 2. 실행
+ * 실행은 단위테스트 내에서
+ * 사용자가 픽스처의 상태값을 직접 변경하는 것.
+ *
+ * 3. 검증
+ * 검증은 expect(), assert() 이런 함수로
+ * 말 그대로 값을 '검증'하는 단계
+ */
