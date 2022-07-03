@@ -55,6 +55,13 @@ describe("province", function () {
     expect(asia.shortfall).equal(-26);
     expect(asia.profit).equal(-10);
   });
+
+  // 수요 입력란에서 빈 문자열을 받는 경계조건 테스트
+  it("empty string demand", function () {
+    asia.demand = "";
+    expect(asia.shortfall).NaN; // 기댓값이 NaN 인 경우, equal() 이 아니라, 그냥 .NaN 구문으로 기댓값 검증하기
+    expect(asia.profit).NaN;
+  });
 });
 
 // 경계지점 조건 검사하기
