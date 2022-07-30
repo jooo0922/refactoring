@@ -20,8 +20,7 @@ const somCustomers = [
 ];
 
 function inNewEngland(aCustomer) {
-  const stateCode = aCustomer.address.state; // 매개변수로 사용할 코드를 변수로 추출
-  return xxNEWinNewEngland(stateCode);
+  return xxNEWinNewEngland(aCustomer.address.state); // 추출해 둔 매개변수 인라인
 }
 
 // 임시 이름을 붙여 함수 추출
