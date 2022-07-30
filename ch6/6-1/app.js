@@ -2,7 +2,8 @@ function printOwing(invoice) {
   printBanner(); // 배너 출력 로직을 함수로 추출
 
   // 미해결 채무(outstanding)를 계산한다.
-  let outstanding = calculateOutstanding(invoice); // 함수 추출 완료. 추출한 함수가 반환한 값을 원래 변수에 저장한다.
+  const outstanding = calculateOutstanding(invoice); // 함수 추출 완료. 추출한 함수가 반환한 값을 원래 변수에 저장한다.
+  // 이제 outstanding 지역변수는 변경될 일이 없으므로, const 로 지정해서 불변으로 만듦.
 
   // 마감일(dueDate)을 기록한다.
   recordDueDate(invoice); // 마감일 설정 로직을 함수로 추출
@@ -13,11 +14,11 @@ function printOwing(invoice) {
 
 function calculateOutstanding(invoice) {
   // 추출할 코드 새 함수에 복사
-  let outstanding = 0;
+  let result = 0; // 변수 이름을 내 코딩스타일에 맞게 변경
   for (const o of invoice.orders) {
-    outstanding += o.amount;
+    result += o.amount;
   }
-  return outstanding; // 수정된 값 반환
+  return result; // 수정된 값 반환
 }
 
 function recordDueDate(invoice) {
