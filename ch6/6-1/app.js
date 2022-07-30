@@ -17,13 +17,13 @@ function printOwing(invoice) {
   );
 
   // 세부사항을 출력한다.
-  printDetails(); // 세부사항 출력 로직을 중첩함수로 추출
+  printDetails(invoice, outstanding); // 앞의 예와 달리 지역변수를 매개변수로 전달
+}
 
-  function printDetails() {
-    console.log(`고객명: ${invoice.customer}`);
-    console.log(`채무액: ${outstanding}`);
-    console.log(`마감일: ${invoice.dueDate.toLocaleDateString()}`);
-  }
+function printDetails(invoice, outstanding) {
+  console.log(`고객명: ${invoice.customer}`);
+  console.log(`채무액: ${outstanding}`);
+  console.log(`마감일: ${invoice.dueDate.toLocaleDateString()}`);
 }
 
 function printBanner() {
