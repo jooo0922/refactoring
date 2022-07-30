@@ -19,13 +19,8 @@ const somCustomers = [
   },
 ];
 
-function inNewEngland(aCustomer) {
-  return xxNEWinNewEngland(aCustomer.address.state); // 추출해 둔 매개변수 인라인
-}
-
-// 임시 이름을 붙여 함수 추출
-function xxNEWinNewEngland(stateCode) {
+function inNewEngland(stateCode) {
   return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(stateCode);
 }
 
-const newEnglanders = somCustomers.filter((c) => inNewEngland(c));
+const newEnglanders = somCustomers.filter((c) => inNewEngland(c.address.state)); // 임시함수 인라인 후, 함수 이름을 기존 함수의 이름으로 교체
