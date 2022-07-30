@@ -20,7 +20,8 @@ const somCustomers = [
 ];
 
 function inNewEngland(aCustomer) {
-  return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(aCustomer.address.state);
+  const stateCode = aCustomer.address.state; // 매개변수로 사용할 코드를 변수로 추출
+  return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(stateCode);
 }
 
 const newEnglanders = somCustomers.filter((c) => inNewEngland(c));
