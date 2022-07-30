@@ -3,10 +3,13 @@
 //   return 2 * Math.PI * radius;
 // }
 
-function circum(radius) {
-  return circumference(radius);
-}
+// 기존 함수 제거
+// function circum(radius) {
+//   return circumference(radius);
+// }
 
 function circumference(radius) {
   return 2 * Math.PI * radius;
 }
+
+const circumference = circumference(5); // 예전 함수를 본문의 추출한 함수를 호출하는 코드로 인라인함.
