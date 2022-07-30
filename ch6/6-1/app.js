@@ -17,9 +17,13 @@ function printOwing(invoice) {
   );
 
   // 세부사항을 출력한다.
-  console.log(`고객명: ${invoice.customer}`);
-  console.log(`채무액: ${outstanding}`);
-  console.log(`마감일: ${invoice.dueDate.toLocaleDateString()}`);
+  printDetails(); // 세부사항 출력 로직을 중첩함수로 추출
+
+  function printDetails() {
+    console.log(`고객명: ${invoice.customer}`);
+    console.log(`채무액: ${outstanding}`);
+    console.log(`마감일: ${invoice.dueDate.toLocaleDateString()}`);
+  }
 }
 
 function printBanner() {
