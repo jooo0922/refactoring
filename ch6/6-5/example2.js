@@ -3,11 +3,11 @@ class Book {
     this._reservations = [];
   }
 
-  zz_addReservation(customer, isPriority) {
+  addReservation(customer, isPriority) {
     assert(isPriority === true || isPriority === false);
     this._reservations.push(customer);
   }
 }
 
 const book = new Book();
-book.zz_addReservation(customer, false);
+book.addReservation(customer, false);
