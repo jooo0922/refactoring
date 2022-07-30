@@ -2,10 +2,7 @@ function printOwing(invoice) {
   printBanner(); // 배너 출력 로직을 함수로 추출
 
   // 미해결 채무(outstanding)를 계산한다.
-  let outstanding = 0; // 맨 위에 있던 선언문을 이 위치로 이동 (문장 슬라이드하기. 연관된 코드들을 비슷한 위치에 모아두는 것!)
-  for (const o of invoice.orders) {
-    outstanding += o.amount;
-  }
+  let outstanding = calculateOutstanding(invoice); // 함수 추출 완료. 추출한 함수가 반환한 값을 원래 변수에 저장한다.
 
   // 마감일(dueDate)을 기록한다.
   recordDueDate(invoice); // 마감일 설정 로직을 함수로 추출
