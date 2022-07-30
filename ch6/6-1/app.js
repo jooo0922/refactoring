@@ -9,15 +9,19 @@ function printOwing(invoice) {
   }
 
   // 마감일(dueDate)을 기록한다.
+  recordDueDate(invoice); // 마감일 설정 로직을 함수로 추출
+
+  // 세부사항을 출력한다.
+  printDetails(invoice, outstanding); // 앞의 예와 달리 지역변수를 매개변수로 전달
+}
+
+function recordDueDate(invoice) {
   const today = Clock.today;
   invoice.dueDate = new Date(
     today.getFullYear(),
     today.getMonth(),
     today.getDate() + 30
   );
-
-  // 세부사항을 출력한다.
-  printDetails(invoice, outstanding); // 앞의 예와 달리 지역변수를 매개변수로 전달
 }
 
 function printDetails(invoice, outstanding) {
