@@ -15,5 +15,5 @@ function setDefaultOwner(arg) {
   defaultOwner = arg;
 }
 
-spaceship.owner = defaultOwner; // 전역변수 참조
-defaultOwner = { firstName: "레베카", lastName: "파슨스" }; // 전역변수 갱신
+spaceship.owner = getDefaultOwner(); // 전역변수 참조
+defaultOwner = setDefaultOwner({ firstName: "레베카", lastName: "파슨스" }); // 전역변수 갱신
