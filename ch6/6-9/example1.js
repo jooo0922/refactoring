@@ -13,9 +13,15 @@ function baseRate(month, year) {
 }
 
 function taxThreshold(year) {
+  // 임시로 작성한 함수
   return 1;
 }
 
 const aReading = acquireReading();
-const base = baseRate(aReading.month, aReading.year) * aReading.quantity;
+const base = calculateBaseCharge(aReading);
 const texableCharge = Math.max(0, base - taxThreshold(aReading.year));
+
+// 기본 요금 계산 함수 추출
+function calculateBaseCharge(aReading) {
+  return baseRate(aReading.month, aReading.year) * aReading.quantity;
+}
