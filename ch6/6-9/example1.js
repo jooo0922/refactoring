@@ -36,13 +36,14 @@ class Reading {
   get year() {
     return this._year;
   }
+
+  // 함수 옮기기
+  get baseCharge() {
+    return baseRate(this.month, this.year) * this.quantity;
+  }
 }
 
-const aReading = acquireReading();
-const base = calculateBaseCharge(aReading);
+const rawReading = acquireReading();
+const aReading = new Reading(rawReading); // 데이터 객체 생성
+const baseChargeAmount = aReading.baseCharge;
 const texableCharge = Math.max(0, base - taxThreshold(aReading.year));
-
-// 기본 요금 계산 함수 추출
-function calculateBaseCharge(aReading) {
-  return baseRate(aReading.month, aReading.year) * aReading.quantity;
-}
