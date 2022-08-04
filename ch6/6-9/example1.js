@@ -45,7 +45,8 @@ class Reading {
 
 const rawReading = acquireReading();
 const aReading = new Reading(rawReading); // 데이터 객체 생성
-const texableCharge = Math.max(
-  0,
-  aReading.baseCharge - taxThreshold(aReading.year)
-); // 기본요금 메서드 인라인
+const texableCharge = texableChargeFn(aReading);
+
+function texableChargeFn(aReading) {
+  return Math.max(0, aReading.baseCharge - taxThreshold(aReading.year)); // 기본요금 메서드 인라인
+}
