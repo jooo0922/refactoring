@@ -41,12 +41,13 @@ class Reading {
   get baseCharge() {
     return baseRate(this.month, this.year) * this.quantity;
   }
+
+  // 함수 옮기기
+  get texableCharge() {
+    return Math.max(0, this.baseCharge - taxThreshold(aReading.year)); // 기본요금 메서드 인라인
+  }
 }
 
 const rawReading = acquireReading();
 const aReading = new Reading(rawReading); // 데이터 객체 생성
-const texableCharge = texableChargeFn(aReading);
-
-function texableChargeFn(aReading) {
-  return Math.max(0, aReading.baseCharge - taxThreshold(aReading.year)); // 기본요금 메서드 인라인
-}
+const texableCharge = aReading.texableCharge;
