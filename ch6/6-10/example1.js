@@ -43,10 +43,7 @@ function cloneDeep(obj) {
 {
   const rawReading = acquireReading();
   const aReading = enrichReading(rawReading); // 미가공 측정값을 계산로직에 전달하기 전, 부가정보를 덧붙이도록 수정함
-  const texableCharge = Math.max(
-    0,
-    aReading.baseCharge - taxThreshold(aReading.year)
-  ); // base 변수 인라인
+  const texableCharge = aReading.taxableCharge; // 변환함수에서 계산된 부가정보가 담긴 필드를 사용하도록 수정
 }
 
 // 클라이언트 3...
@@ -65,5 +62,9 @@ function calculateBaseCharge(aReading) {
 function enrichReading(original) {
   const result = cloneDeep(original);
   result.baseCharge = calculateBaseCharge(result); // 계산로직의 출력값을 부가정보로 덧붙임
+  result.taxableCharge = Math.max(
+    0,
+    result.baseCharge - taxThreshold(aReading.year)
+  ); // 클라이언트 2의 계산로직을 변환함수로 옮겨 출력값을 부가정보로 덧붙임
   return result;
 }
