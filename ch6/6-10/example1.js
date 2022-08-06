@@ -49,3 +49,9 @@ function cloneDeep(obj) {
     return baseRate(aReading.month, aReading.year) * aReading.quantity;
   }
 }
+
+// 먼저 입력 객체를 그대로 깊은 복사하여 반환하는 변환함수 만듦.
+function enrichReading(original) {
+  const result = cloneDeep(original);
+  return result;
+}
