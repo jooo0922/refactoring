@@ -1,4 +1,11 @@
 function priceOrder(product, quantity, shippingMethod) {
+  const priceData = calculatePricingData(product, quantity);
+  const price = applyShipping(priceData, shippingMethod); // 중간 데이터 구조를 두 번째 단계 함수의 인수로 추가
+  return price;
+}
+
+// 첫 번째 단계(상품 가격 계산 코드) 함수로 추출
+function calculatePricingData(product, quantity) {
   const basePrice = product.basePrice * quantity;
   const discount =
     Math.max(quantity - product.discountThreshold, 0) *
@@ -10,8 +17,7 @@ function priceOrder(product, quantity, shippingMethod) {
     quantity: quantity,
     discount: discount,
   }; // 중간 데이터 구조
-  const price = applyShipping(priceData, shippingMethod); // 중간 데이터 구조를 두 번째 단계 함수의 인수로 추가
-  return price;
+  return priceData; // 중간 데이터 구조 반환
 }
 
 // 두 번째 단계(배송비 계산 코드) 함수로 추출
