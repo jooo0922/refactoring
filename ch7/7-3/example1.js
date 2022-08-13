@@ -1,14 +1,14 @@
 class Order {
   constructor(data) {
-    this._priority = data.priority;
+    this._priority = new Priority(data.priority);
     // 나머지 초기화 코드 생략
   }
   // 필드 캡슐화(자가 캡슐화)를 위한 접근자 지정
   get priority() {
-    return this._priority;
+    return this._priority.toString();
   }
   set priority(aString) {
-    this._priority = aString;
+    this._priority = new Priority(aString);
   }
 }
 
