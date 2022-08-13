@@ -1,4 +1,4 @@
-const customerData = {
+const customerData = new CustomerData({
   1920: {
     name: "마틴 파울러",
     id: "1920",
@@ -32,7 +32,7 @@ const customerData = {
     },
   },
   // 다른 고객 정보도 같은 형식으로 저장된다.
-};
+}); // 레코드를 클래스로 교체
 
 const customerID = 1920;
 const year = 2016;
@@ -50,10 +50,20 @@ function compareUsage(customerID, laterYear, month) {
   return { laterAmount: later, change: later - earlier };
 }
 
-// 변수 캡슐화를 위한 게터, 세터 함수 생성
-function getRawDataOfCustomers() {
+// 새로 정의한 클래스 인스턴스를 반환하는 함수
+function getCustomerData() {
   return customerData;
 }
+function getRawDataOfCustomers() {
+  return customerData._data;
+}
 function setRawDataOfCustomers(arg) {
-  customerData = arg;
+  customerData = new CustomerData(arg);
+}
+
+// 레코드 구조를 표현하는 클래스 정의
+class CustomerData {
+  constructor(data) {
+    this._data = data;
+  }
 }
