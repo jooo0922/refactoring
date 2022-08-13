@@ -12,6 +12,18 @@ class Order {
   }
 }
 
+// priority 변수의 값 클래스 생성
+class Priority {
+  // 1. 값을 받는 생성자
+  constructor(value) {
+    this._value = value;
+  }
+  // 2. 값을 문자열로 반환하는 반환함수 (게터보다는 반환함수 사용이 더 자연스러움)
+  toString() {
+    return this._value;
+  }
+}
+
 // 클라이언트...
 let orders = [];
 orders.push(new Order({ priority: "high" }));
