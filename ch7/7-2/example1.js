@@ -8,7 +8,7 @@ class Person {
     return this._name;
   }
   get courses() {
-    return this._courses;
+    return this._courses.slice(); // 컬렉션 읽기 메서드는 복제본을 반환하도록 수정
   }
   // 컬렉션 요소 추가 메서드
   addCourse(aCourse) {
