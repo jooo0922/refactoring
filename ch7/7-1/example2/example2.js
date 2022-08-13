@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 const customerData = new CustomerData({
   1920: {
     name: "마틴 파울러",
@@ -55,7 +57,7 @@ function getCustomerData() {
   return customerData;
 }
 function getRawDataOfCustomers() {
-  return customerData._data;
+  return customerData.rawData;
 }
 function setRawDataOfCustomers(arg) {
   customerData = new CustomerData(arg);
@@ -70,5 +72,12 @@ class CustomerData {
   // 중첩 레코드 쓰기 함수를 클래스로 이동.
   setUsage(customerID, year, month, amount) {
     this._data[customerID].usage[year][month] = amount;
+  }
+
+  // 데이터 쓰기 후 상태를 확인하기 위해 데이터를 깊은 복사하여 반환
+  // 왜 깊은복사를 하나? value 가 object 인 경우 해당 객체가 저장된 레퍼런스 주소값이 들어가서
+  // 클라이언트가 원본 데이터를 훼손시킬 우려가 있음. 그래서 lodash 의 cloneDeep() 메서드로 깊은복사 처리해서 반환하려는 것.
+  get rawData() {
+    return _.cloneDeep(this._data);
   }
 }
