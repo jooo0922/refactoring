@@ -4,7 +4,8 @@ class Order {
     // 나머지 초기화 코드 생략
   }
   // 필드 캡슐화(자가 캡슐화)를 위한 접근자 지정
-  get priority() {
+  // 이제 이 게터는 우선순위 자체보다는 우선순위를 표현한 문자열을 반환하므로, 함수 이름을 수정함.
+  get priorityString() {
     return this._priority.toString();
   }
   set priority(aString) {
@@ -31,5 +32,5 @@ orders.push(new Order({ priority: "rush" }));
 orders.push(new Order({ priority: "low" }));
 
 const highPriorityCount = orders.filter(
-  (o) => o.priority === "high" || o.priority === "rush"
+  (o) => o.priorityString === "high" || o.priorityString === "rush"
 ).length;
