@@ -13,6 +13,22 @@ class Person {
   set courses(aList) {
     this._courses = aList;
   }
+  // 컬렉션 요소 추가 메서드
+  addCourse(aCourse) {
+    this._courses.push(aCourse);
+  }
+  // 컬렉션 요소 제거 메서드
+  removeCourse(
+    aCourse,
+    fnIfAbsent = () => {
+      throw new RangeError();
+    }
+  ) {
+    const index = this._courses.indexOf(aCourse);
+    if (index === -1)
+      fnIfAbsent(); // 제거 메서드는 컬렉션에 없는 원소를 입력받았을 때의 대응방식을 정헤야 함.
+    else this.courses.splice(index, 1);
+  }
 }
 
 class Course {
