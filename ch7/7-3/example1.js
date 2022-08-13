@@ -28,6 +28,31 @@ class Priority {
   toString() {
     return this._value;
   }
+
+  // 우선순위의 index 를 얻는 게터
+  get _index() {
+    return Priority.legalValues().findIndex((s) => s === this._value);
+  }
+
+  // 유효한 우선순위 문자열들을 반환하는 동작
+  static legalValues() {
+    return ["low", "normal", "high", "rush"];
+  }
+
+  // 우선순위가 같은지 비교하는 동작
+  equals(other) {
+    return this._index === other._index;
+  }
+
+  // 우선순위가 높은지 비교하는 동작
+  higherThan(other) {
+    return this._index > other._index;
+  }
+
+  // 우선순위가 낮은지 비교하는 동작
+  lowerThan(other) {
+    return this._index < other._index;
+  }
 }
 
 // 클라이언트...
@@ -37,5 +62,5 @@ orders.push(new Order({ priority: "rush" }));
 orders.push(new Order({ priority: "low" }));
 
 const highPriorityCount = orders.filter(
-  (o) => o.priorityString === "high" || o.priorityString === "rush"
+  (o) => o.priority.higherThan(new Priority("normal")) // 클라이언트 코드에서 추가한 동작들을 사용하도록 수정
 ).length;
