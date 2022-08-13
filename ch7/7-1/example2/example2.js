@@ -46,20 +46,15 @@ getCustomerData().setUsage(customerID, year, month, amount);
 
 // 읽기 예
 function compareUsage(customerID, laterYear, month) {
-  const later = getCustomerData().usage(customerID, laterYear, month);
-  const earlier = getCustomerData().usage(customerID, laterYear, month);
+  const later = getCustomerData().rawData[customerID].usage[laterYear][month]; // 데이터 읽기를 처리할 때, 깊은복사한 데이터를 가져오는 방법도 있음.
+  const earlier =
+    getCustomerData().rawData[customerID].usage[laterYear - 1][month];
   return { laterAmount: later, change: later - earlier };
 }
 
 // 새로 정의한 클래스 인스턴스를 반환하는 함수
 function getCustomerData() {
   return customerData;
-}
-function getRawDataOfCustomers() {
-  return customerData.rawData;
-}
-function setRawDataOfCustomers(arg) {
-  customerData = new CustomerData(arg);
 }
 
 // 레코드 구조를 표현하는 클래스 정의
