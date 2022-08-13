@@ -3,6 +3,10 @@ class Order {
     this._priority = new Priority(data.priority);
     // 나머지 초기화 코드 생략
   }
+  // priority 객체를 제공하는 게터 추가
+  get priority() {
+    return this._priority;
+  }
   // 필드 캡슐화(자가 캡슐화)를 위한 접근자 지정
   // 이제 이 게터는 우선순위 자체보다는 우선순위를 표현한 문자열을 반환하므로, 함수 이름을 수정함.
   get priorityString() {
