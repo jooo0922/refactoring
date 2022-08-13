@@ -10,9 +10,6 @@ class Person {
   get courses() {
     return this._courses;
   }
-  set courses(aList) {
-    this._courses = aList;
-  }
   // 컬렉션 요소 추가 메서드
   addCourse(aCourse) {
     this._courses.push(aCourse);
