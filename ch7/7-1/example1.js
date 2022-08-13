@@ -6,7 +6,7 @@ const organization = new Organization({
 let result = "";
 const newName = "새로운 이름";
 result += `<h1>${getRawDataOfOrganization().name}</h1>`; // 읽기 예
-getRawDataOfOrganization().name = newName; // 쓰기 예
+getOrganization().name = newName; // 레코드 갱신 코드는 세터로 변경
 
 // 변수 캡슐화
 function getRawDataOfOrganization() {
@@ -21,5 +21,10 @@ function getOrganization() {
 class Organization {
   constructor(data) {
     this._data = data;
+  }
+
+  // 레코드 갱신 코드는 세터로 변경
+  set name(aString) {
+    this._data.name = aString;
   }
 }
