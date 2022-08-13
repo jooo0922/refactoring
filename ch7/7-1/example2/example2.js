@@ -46,9 +46,8 @@ getCustomerData().setUsage(customerID, year, month, amount);
 
 // 읽기 예
 function compareUsage(customerID, laterYear, month) {
-  const later = getRawDataOfCustomers()[customerID].usage[laterYear][month];
-  const earlier =
-    getRawDataOfCustomers()[customerID].usage[laterYear - 1][month];
+  const later = getCustomerData().usage(customerID, laterYear, month);
+  const earlier = getCustomerData().usage(customerID, laterYear, month);
   return { laterAmount: later, change: later - earlier };
 }
 
@@ -79,5 +78,10 @@ class CustomerData {
   // 클라이언트가 원본 데이터를 훼손시킬 우려가 있음. 그래서 lodash 의 cloneDeep() 메서드로 깊은복사 처리해서 반환하려는 것.
   get rawData() {
     return _.cloneDeep(this._data);
+  }
+
+  // 데이터 읽기 코드를 함수로 추출하여 클래스로 이동.
+  usage(customerID, laterYear, month) {
+    return this._data[customerID].usage[laterYear][month];
   }
 }
