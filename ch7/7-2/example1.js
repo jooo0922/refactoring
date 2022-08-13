@@ -49,5 +49,6 @@ function readBasicCourseNames(filename) {
 }
 const aPerson = new Person("john");
 const filename = "수업목록";
-const basicCourseNames = readBasicCourseNames(filename);
-aPerson.courses = basicCourseNames.map((name) => new Course(name, false)); // Person 클래스의 수업 컬렉션을 통째로 수정하는 클라이언트
+for (const name of readBasicCourseNames(filename)) {
+  aPerson.addCourse(new Course(name, false)); // 컬렉션 요소 추가 메서드를 사용하도록 교체
+}
