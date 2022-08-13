@@ -40,7 +40,12 @@ const month = 1;
 const amount = 40;
 
 // 쓰기 예
-getRawDataOfCustomers()[customerID].usage[year][month] = amount;
+setUsage(customerID, year, month, amount);
+
+// 중첩 레코드 데이터 구조에 깊이 들어가서 값을 쓰는 코드를 세터 함수로 추출
+function setUsage(customerID, year, month, amount) {
+  getRawDataOfCustomers()[customerID].usage[year][month] = amount;
+}
 
 // 읽기 예
 function compareUsage(customerID, laterYear, month) {
