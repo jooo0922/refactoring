@@ -40,11 +40,20 @@ const month = 1;
 const amount = 40;
 
 // 쓰기 예
-customerData[customerID].usage[year][month] = amount;
+getRawDataOfCustomers()[customerID].usage[year][month] = amount;
 
 // 읽기 예
 function compareUsage(customerID, laterYear, month) {
-  const later = customerData[customerID].usage[laterYear][month];
-  const earlier = customerData[customerID].usage[laterYear - 1][month];
+  const later = getRawDataOfCustomers()[customerID].usage[laterYear][month];
+  const earlier =
+    getRawDataOfCustomers()[customerID].usage[laterYear - 1][month];
   return { laterAmount: later, change: later - earlier };
+}
+
+// 변수 캡슐화를 위한 게터, 세터 함수 생성
+function getRawDataOfCustomers() {
+  return customerData;
+}
+function setRawDataOfCustomers(arg) {
+  customerData = arg;
 }
