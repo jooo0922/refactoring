@@ -40,12 +40,7 @@ const month = 1;
 const amount = 40;
 
 // 쓰기 예
-setUsage(customerID, year, month, amount);
-
-// 중첩 레코드 데이터 구조에 깊이 들어가서 값을 쓰는 코드를 세터 함수로 추출
-function setUsage(customerID, year, month, amount) {
-  getRawDataOfCustomers()[customerID].usage[year][month] = amount;
-}
+getCustomerData().setUsage(customerID, year, month, amount);
 
 // 읽기 예
 function compareUsage(customerID, laterYear, month) {
@@ -70,5 +65,10 @@ function setRawDataOfCustomers(arg) {
 class CustomerData {
   constructor(data) {
     this._data = data;
+  }
+
+  // 중첩 레코드 쓰기 함수를 클래스로 이동.
+  setUsage(customerID, year, month, amount) {
+    this._data[customerID].usage[year][month] = amount;
   }
 }
