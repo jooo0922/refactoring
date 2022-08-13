@@ -21,6 +21,7 @@ class Order {
 class Priority {
   // 1. 값을 받는 생성자
   constructor(value) {
+    if (value instanceof Priority) return value; // Order 의 세터가 Priority 인스턴스도 받을 수 있도록 수정
     this._value = value;
   }
   // 2. 값을 문자열로 반환하는 반환함수 (게터보다는 반환함수 사용이 더 자연스러움)
