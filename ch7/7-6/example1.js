@@ -2,10 +2,12 @@
 class Shipment {
   constructor() {
     this._trackingInformation = new TrackingInformation();
+    this._shippingCompany = "A택배";
+    this._trackingNumber = "102834740";
   }
 
   get trackingInfo() {
-    return this._trackingInformation.display;
+    return `${this.shippingCompany}: ${this.trackingNumber}`;
   }
   get trackingInformation() {
     return this._trackingInformation;
@@ -13,18 +15,6 @@ class Shipment {
   set trackingInformation(aTrackingInformation) {
     this._trackingInformation = aTrackingInformation;
   }
-  set shippingCompany(arg) {
-    this._trackingInformation.shippingCompany = arg;
-  } // 타깃 클래스에 위임 메서드 생성
-}
-
-// 배송 추적 정보 클래스 (소스 클래스)
-class TrackingInformation {
-  constructor() {
-    this._shippingCompany = "A택배";
-    this._trackingNumber = "102834740";
-  }
-
   get shippingCompany() {
     return this._shippingCompany;
   }
@@ -37,9 +27,11 @@ class TrackingInformation {
   set trackingNumber(arg) {
     this._trackingNumber = arg;
   }
-  get display() {
-    return `${this.shippingCompany}: ${this.trackingNumber}`;
-  }
+}
+
+// 배송 추적 정보 클래스 (소스 클래스)
+class TrackingInformation {
+  constructor() {}
 }
 
 // 클라이언트
