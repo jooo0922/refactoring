@@ -1,5 +1,6 @@
 class Person {
   constructor() {
+    this._telephoneNumber = new TelephoneNumber(); // 원래 클래스 생성자에 새로 추출한 클래스 인스턴스 생성
     this._name = "john";
     this._officeAreaCode = "010";
     this._officeNumber = "1234566";
