@@ -27,3 +27,8 @@ class Person {
     this._officeNumber = arg;
   }
 }
+
+// 전화번호 관련 동작 및 데이터를 별도 클래스로 추출
+class TelephoneNumber {
+  constructor() {}
+}
