@@ -11,19 +11,19 @@ class Person {
     this._name = arg;
   }
   get telephoneNumber() {
-    return this._telephoneNumber.telephoneNumber;
+    return this._telephoneNumber.toString();
   }
   get officeAreaCode() {
-    return this._telephoneNumber.officeAreaCode;
+    return this._telephoneNumber.areaCode;
   }
   set officeAreaCode(arg) {
-    this._telephoneNumber.officeAreaCode = arg;
+    this._telephoneNumber.areaCode = arg;
   }
   get officeNumber() {
-    return this._telephoneNumber.officeNumber;
+    return this._telephoneNumber.number;
   }
   set officeNumber(arg) {
-    this._telephoneNumber.officeNumber = arg;
+    this._telephoneNumber.number = arg;
   }
 }
 
@@ -31,23 +31,23 @@ class Person {
 class TelephoneNumber {
   constructor() {
     // 전화번호 관련 필드들을 원래 클래스에서 새 클래스로 이동
-    this._officeAreaCode = "010";
-    this._officeNumber = "1234566";
+    this._areaCode = "010";
+    this._number = "1234566";
   }
 
-  get telephoneNumber() {
-    return `(${this.officeAreaCode}) ${this.officeNumber}`;
+  toString() {
+    return `(${this.areaCode}) ${this.number}`;
   }
-  get officeAreaCode() {
-    return this._officeAreaCode;
+  get areaCode() {
+    return this._areaCode;
   }
-  set officeAreaCode(arg) {
-    this._officeAreaCode = arg;
+  set areaCode(arg) {
+    this._areaCode = arg;
   }
-  get officeNumber() {
-    return this._officeNumber;
+  get number() {
+    return this._number;
   }
-  set officeNumber(arg) {
-    this._officeNumber = arg;
+  set number(arg) {
+    this._number = arg;
   }
 }
