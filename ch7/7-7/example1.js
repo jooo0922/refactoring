@@ -11,12 +11,6 @@ class Person {
   get manager() {
     return this._department.manager;
   }
-  get department() {
-    return this._department;
-  }
-  set department(arg) {
-    this._department = arg;
-  }
 }
 
 // 위임 객체
