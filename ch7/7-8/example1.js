@@ -11,6 +11,10 @@ class Person {
   get manager() {
     return this._department.manager;
   }
+  // 위임객체를 얻는 게터 생성
+  get department() {
+    return this._department;
+  }
 }
 
 // 위임 객체
