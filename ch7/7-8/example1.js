@@ -40,4 +40,4 @@ class Department {
 
 // 클라이언트 코드
 const aPerson = new Person("jack");
-const manager = aPerson.manager; // 클라이언트에서 위임메서드를 사용하도록 수정
+const manager = aPerson.department.manager; // 클라이언트에서 위임 객체를 직접 사용하도록 수정
