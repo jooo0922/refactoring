@@ -7,6 +7,10 @@ class Person {
   get name() {
     return this._name;
   }
+  // 위임 객체에서 데이터를 가져오는 위임메서드 생성
+  get manager() {
+    return this._department.manager;
+  }
   get department() {
     return this._department;
   }
@@ -35,3 +39,7 @@ class Department {
     this._manager = arg;
   }
 }
+
+// 클라이언트 코드
+const aPerson = new Person("jack");
+const manager = aPerson.department.manager;
