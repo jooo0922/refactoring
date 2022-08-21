@@ -7,10 +7,6 @@ class Person {
   get name() {
     return this._name;
   }
-  // 위임 객체에서 데이터를 가져오는 위임메서드 생성
-  get manager() {
-    return this._department.manager;
-  }
   // 위임객체를 얻는 게터 생성
   get department() {
     return this._department;
