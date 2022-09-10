@@ -12,13 +12,8 @@ class Account {
 
   // 초과 인출 이자 계산
   get overDraftCharge() {
-    if (this.type.isPremium) {
-      const baseCharge = 10;
-      if (this._daysOverdrawn <= 7) return baseCharge;
-      else return baseCharge + (this.daysOverdrawn - 7) * 0.85;
-    } else {
-      return this.daysOverdrawn * 1.75;
-    }
+    // Account 의 overDraftCharge() 소스메서드를 위임메서드로 변경
+    return this.type.overDraftCharge(this.daysOverdrawn);
   }
 
   get daysOverdrawn() {
