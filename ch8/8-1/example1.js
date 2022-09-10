@@ -1,17 +1,12 @@
 function trackSummary(points) {
   const totalTime = calculateTime();
-  const totalDistance = calculateDistance();
+  const totalDistance = top_calculateDistance(); // 위임역할을 하는 소스함수 제거
   const pace = totalTime / 60 / totalDistance;
   return {
     time: totalTime,
     distance: totalDistance,
     pace: pace,
   };
-
-  // 총 거리 계산
-  function calculateDistance() {
-    return top_calculateDistance(); // 소스함수가 타깃함수의 위임함수가 되도록 본문 수정
-  }
 
   function calculateTime() {} // 총 시간 계산
 }
