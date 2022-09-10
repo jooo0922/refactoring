@@ -1,7 +1,6 @@
 function trackSummary(points) {
   const totalTime = calculateTime();
-  const totalDistance = top_calculateDistance(); // 위임역할을 하는 소스함수 제거
-  const pace = totalTime / 60 / totalDistance;
+  const pace = totalTime / 60 / totalDistance(points); // 최상위 함수 이름 변경 후 같은 이름의 변수 인라인
   return {
     time: totalTime,
     distance: totalDistance,
@@ -12,7 +11,7 @@ function trackSummary(points) {
 }
 
 // 중첩함수를 최상위로 복사하면서 새로운 (임시) 이름을 지어줌
-function top_calculateDistance(points) {
+function totalDistance(points) {
   let result = 0;
   for (let i = 0; i < points.length; i++) {
     result += distance(points[i - 1], points[i]);
