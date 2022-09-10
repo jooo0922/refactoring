@@ -6,14 +6,9 @@ class Account {
   // 은행 이자 계산
   get backCharge() {
     let result = 4.5;
-    if (this.daysOverdrawn > 0) result += this.overdraftCharge;
+    if (this.daysOverdrawn > 0)
+      result += this.type.overDraftCharge(this.daysOverdrawn); // 위임 메서드 인라인
     return result;
-  }
-
-  // 초과 인출 이자 계산
-  get overDraftCharge() {
-    // Account 의 overDraftCharge() 소스메서드를 위임메서드로 변경
-    return this.type.overDraftCharge(this.daysOverdrawn);
   }
 
   get daysOverdrawn() {
