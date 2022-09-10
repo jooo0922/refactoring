@@ -1,7 +1,7 @@
 class Customer {
   constructor(name, discountRate) {
     this._name = name;
-    this._discountRate = discountRate;
+    this._setDiscountRate(discountRate);
     this.contract = new CustomerContract(dateToday());
   }
 
@@ -9,13 +9,18 @@ class Customer {
     return this._discountRate;
   }
 
+  // 변수 캡슐화를 위한 세터 함수 추가
+  _setDiscountRate(aNumber) {
+    this._discountRate = aNumber;
+  }
+
   becomePreferred() {
-    this._discountRate += 0.03;
+    this._setDiscountRate(this.discountRate + 0.03);
     // 다른 멋진 일들
   }
 
   applyDiscount(amount) {
-    return amount.subtract(amount.multiply(this._discountRate));
+    return amount.subtract(amount.multiply(this.discountRate));
   }
 }
 
