@@ -1,17 +1,17 @@
 class Customer {
   constructor(name, discountRate) {
     this._name = name;
+    this._contract = new CustomerContract(dateToday());
     this._setDiscountRate(discountRate);
-    this.contract = new CustomerContract(dateToday());
   }
 
   get discountRate() {
-    return this._discountRate;
+    return this._contract.discountRate;
   }
 
   // 변수 캡슐화를 위한 세터 함수 추가
   _setDiscountRate(aNumber) {
-    this._discountRate = aNumber;
+    this._contract.discountRate = aNumber;
   }
 
   becomePreferred() {
