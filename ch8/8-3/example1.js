@@ -8,11 +8,14 @@ function renderPerson(outStream, person) {
 }
 
 function photoDiv(p) {
+  return ["<div>", zznew(p), "<div>"].join("\n");
+}
+
+// 타겟 함수 호출자 중 하나를 추출함.
+function zznew(p) {
   return [
-    "<div>",
     `<p>제목: ${p.title}</p>`, // 제목 출력
     emitPhotoData(p),
-    "<div>",
   ].join("\n");
 }
 
