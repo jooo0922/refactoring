@@ -14,15 +14,9 @@ function photoDiv(p) {
 function zznew(p) {
   return [
     `<p>제목: ${p.title}</p>`, // 제목 출력
-    emitPhotoData(p),
-  ].join("\n");
-}
-
-function emitPhotoData(aPhoto) {
-  const result = [];
-  result.push(`<p>위치: ${aPhoto.location}</p>`);
-  result.push(`<p>날짜: ${aPhoto.data.toDataString()}</p>`);
-  return result.join("\n");
+    `<p>위치: ${p.location}</p>`,
+    `<p>날짜: ${p.data.toDataString()}</p>`,
+  ].join("\n"); // emitPhotoData() 함수를 인라인함.
 }
 
 function renderPhoto(photo) {
