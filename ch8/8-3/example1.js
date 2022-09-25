@@ -2,16 +2,16 @@ function renderPerson(outStream, person) {
   const result = [];
   result.push(`<p>${person.name}</p>`);
   result.push(renderPhoto(person.photo));
-  result.push(zznew(person.photo));
+  result.push(emitPhotoData(person.photo));
   return result.join("\n");
 }
 
 function photoDiv(p) {
-  return ["<div>", zznew(p), "<div>"].join("\n");
+  return ["<div>", emitPhotoData(p), "<div>"].join("\n");
 }
 
 // 타겟 함수 호출자 중 하나를 추출함.
-function zznew(p) {
+function emitPhotoData(p) {
   return [
     `<p>제목: ${p.title}</p>`, // 제목 출력
     `<p>위치: ${p.location}</p>`,
