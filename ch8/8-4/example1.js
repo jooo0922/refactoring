@@ -16,11 +16,6 @@ function listRecentPhotos(outStream, photos) {
     });
 }
 
-function emitPhotoData(outStream, photo) {
-  zztmp(outStream, photo);
-  outStream.write(`<p>위치: ${photo.location}</p>\n`);
-}
-
 function zztmp(outStream, photo) {
   // 이동하지 않을 코드 (남기고 싶은 코드들만 새로운 함수로 추출한 것.)
   outStream.write(`<p>제목: ${photo.title}</p>\n`);
