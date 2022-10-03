@@ -10,7 +10,8 @@ function acquireData(input) {
   const lines = input.split("\n"); // 컬렉션 (String.split("\n") 하면, 줄 단위로 끊어진 문자열들이 담긴 배열을 리턴해 줄 것임.)
   let firstLine = true;
   const result = [];
-  for (const line of lines) {
+  const loopItems = lines; // 컬렉션이 사용할 루프변수 새로 만들기
+  for (const line of loopItems) {
     if (firstLine) {
       firstLine = false;
       continue; // 첫 번째 줄 건너뜀. -> .csv 파일의 첫번째 줄은 항목 데이터(office, country, telephone)만 있으니까 건너뛰는 것!
