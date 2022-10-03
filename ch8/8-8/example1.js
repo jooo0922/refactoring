@@ -13,9 +13,10 @@ function acquireData(input) {
   // 컬렉션이 사용할 루프변수 새로 만들기
   const loopItems = lines
     .slice(1) // 첫줄을 건너뛰는 if 문을 .slice() 파이프라인으로 교체
-    .filter((line) => line.trim() !== ""); // 빈줄 건너뛰는 if 문을 filter() 파이프라인으로 교체
+    .filter((line) => line.trim() !== "") // 빈줄 건너뛰는 if 문을 filter() 파이프라인으로 교체
+    .map((line) => line.split(",")); // 각 라인마다 csv 데이터 -> 문자열 배열로 변환하는 작업을 .map() 파이프라인으로 교체
   for (const line of loopItems) {
-    const record = line.split(","); // 각 라인마다 쉼표를 기준으로 끊어진 문자열들이 담긴 배열을 리턴함 (각 배열은 [office, country, telephone] 순으로 리턴되겠군)
+    const record = line;
     if (record[1].trim() === "India") {
       // .trim()을 왜 해주냐면, .csv 파일에서 "India, " 이런 식으로 각 항목이 저장되므로, 각 항목별 오른쪽 공백을 제거하기 위해서 trim() 을 쓰는것임.
       result.push({ city: record[0].trim(), phone: record[2].trim() });
