@@ -1,0 +1,14 @@
+class ProductionPlan {
+  constructor(production) {
+    this._production = production;
+    this._adjustments = [];
+  }
+
+  get production() {
+    return this._production;
+  }
+  applyAdjustment(anAdjustment) {
+    this._adjustments.push(anAdjustment);
+    this._production += anAdjustment.amount; // production 값 누적 계산을 굳이 여기서? 그리고 anAdjustment 가 추가될때마다 자주 변경되는 가변데이터임.
+  }
+}
