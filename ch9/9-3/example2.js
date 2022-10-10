@@ -7,7 +7,7 @@ class ProductionPlan {
   }
 
   get production() {
-    return this._production;
+    return this._initialProduction + this._productionAccumulator;
   }
   applyAdjustment(anAdjustment) {
     this._adjustments.push(anAdjustment);
