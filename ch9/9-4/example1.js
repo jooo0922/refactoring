@@ -1,19 +1,19 @@
 class Person {
   constructor() {
-    this._telephoneNumber = new TelephoneNumber();
+    this._telephoneNumber = new TelephoneNumber("010", "1234567");
   }
 
   get officeAreaCode() {
     return this._telephoneNumber.areaCode;
   }
   set officeAreaCode(arg) {
-    this._telephoneNumber.areaCode = arg;
+    this._telephoneNumber = new TelephoneNumber(arg, this.officeNumber);
   }
   get officeNumber() {
     return this._telephoneNumber.number;
   }
   set officeNumber(arg) {
-    this._telephoneNumber.number = arg;
+    this._telephoneNumber = new TelephoneNumber(this.officeAreaCode, arg);
   }
 }
 
