@@ -1,6 +1,8 @@
 class ProductionPlan {
   constructor(production) {
-    this._production = production;
+    // 파생변수를 둘로 쪼갬 (초기값 + 누산기)
+    this._initialProduction = production;
+    this._productionAccumulator = 0;
     this._adjustments = [];
   }
 
