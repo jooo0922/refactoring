@@ -28,4 +28,8 @@ class TelephoneNumber {
   get number() {
     return this._number;
   }
+  equals(other) {
+    if (!(other instanceof TelephoneNumber)) return false;
+    return this.areaCode === other.areaCode && this.number === other.number;
+  }
 }
