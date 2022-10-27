@@ -5,6 +5,8 @@ function adjustedCapital(anInstrument) {
     anInstrument.duration <= 0
   )
     return 0;
-  return;
-  (anInstrument.income / anInstrument.duration) * anInstrument.adjustmentFactor;
+  return (
+    (anInstrument.income / anInstrument.duration) *
+    anInstrument.adjustmentFactor
+  );
 }
