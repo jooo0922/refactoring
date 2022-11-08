@@ -1,9 +1,15 @@
-function plumages(bird) {
-  return createBird(bird).plumage;
+function plumages(birds) {
+  return new Map(
+    birds.map((b) => createBird(b)).map((bird) => [bird.name, bird.plumage])
+  );
 }
 
-function speeds(bird) {
-  return createBird(bird).airSpeedVelocity;
+function speeds(birds) {
+  return new Map(
+    birds
+      .map((b) => createBird(b))
+      .map((bird) => [bird.name, bird.airSpeedVelocity])
+  );
 }
 
 // 서브클래스 인스턴스를 생성하는 팩토리 함수
