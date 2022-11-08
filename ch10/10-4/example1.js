@@ -23,22 +23,37 @@ function createBird(bird) {
 // 종별 서브클래스
 class EuropeanSwallow extends Bird {
   // 조건부 메서드 오버라이드
-  plumage() {
+  get plumage() {
     return "보통이다";
+  }
+
+  // 다른 조건부 메서드 오버라이드
+  get airSpeedVelocity() {
+    return 35;
   }
 }
 
 class AfricanSwallow extends Bird {
   // 조건부 메서드 오버라이드
-  plumage() {
+  get plumage() {
     return this.numberOfCoconuts > 2 ? "지쳤다" : "보통이다";
+  }
+
+  // 다른 조건부 메서드 오버라이드
+  get airSpeedVelocity() {
+    return 40 - 2 * this.numberOfCoconuts;
   }
 }
 
 class NorwegianBlueParrot extends Bird {
   // 조건부 메서드 오버라이드
-  plumage() {
+  get plumage() {
     return this.voltage > 100 ? "그을렸다" : "예쁘다";
+  }
+
+  // 다른 조건부 메서드 오버라이드
+  get airSpeedVelocity() {
+    return this.isNailed ? 0 : 10 + this.voltage / 10;
   }
 }
 
@@ -56,15 +71,7 @@ class Bird {
 
   // 비행 속도 반환 함수
   get airSpeedVelocity() {
-    switch (this.type) {
-      case "유럽 제비":
-        return 35;
-      case "아프리카 제비":
-        return 40 - 2 * bird.numberOfCoconuts;
-      case "노르웨이 파랑 앵무":
-        return bird.isNailed ? 0 : 10 + bird.voltage / 10;
-      default:
-        return null;
-    }
+    // 슈퍼클래스 메서드는 기본 동작용으로 남겨놓음.
+    return null;
   }
 }
