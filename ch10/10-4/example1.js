@@ -28,9 +28,19 @@ class EuropeanSwallow extends Bird {
   }
 }
 
-class AfricanSwallow extends Bird {}
+class AfricanSwallow extends Bird {
+  // 조건부 메서드 오버라이드
+  plumage() {
+    return this.numberOfCoconuts > 2 ? "지쳤다" : "보통이다";
+  }
+}
 
-class NorwegianBlueParrot extends Bird {}
+class NorwegianBlueParrot extends Bird {
+  // 조건부 메서드 오버라이드
+  plumage() {
+    return this.voltage > 100 ? "그을렸다" : "예쁘다";
+  }
+}
 
 // 슈퍼 클래스
 class Bird {
@@ -40,16 +50,8 @@ class Bird {
 
   // 깃털 상태 반환 게터
   get plumage() {
-    switch (this.type) {
-      case "유럽 제비":
-        throw "오류 발생"; // 오버라이드한 조건절은 throw 문으로 예외처리 함.
-      case "아프리카 제비":
-        return bird.numberOfCoconuts > 2 ? "지쳤다" : "보통이다";
-      case "노르웨이 파랑 앵무":
-        return bird.voltage > 100 ? "그을렸다" : "예쁘다";
-      default:
-        return "알 수 없다";
-    }
+    // 슈퍼클래스 메서드는 기본 동작용으로 남겨놓음.
+    return "알 수 없다";
   }
 
   // 비행 속도 반환 함수
