@@ -21,7 +21,13 @@ function createRating(voyage, history) {
 }
 
 // 변형 동작을 담당할 서브클래스 생성
-class ExperiencedChinaRating extends Rating {}
+class ExperiencedChinaRating extends Rating {
+  get captainHistoryRisk() {
+    // 서브클래스에 메서드 오버라이드 후, 변형동작을 옮겨옴.
+    const result = super.captainHistoryRisk - 2;
+    return Math.max(result, 0);
+  }
+}
 
 class Rating {
   constructor(voyage, history) {
@@ -51,7 +57,6 @@ class Rating {
     let result = 1;
     if (this.history.length < 5) result += 4;
     result += this.history.filter((v) => v.profit < 0).length;
-    if (this.voyage.zone === "중국" && this.hasChinaHistory) result -= 2;
     return Math.max(result, 0);
   }
 
