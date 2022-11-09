@@ -29,7 +29,7 @@ class ExperiencedChinaRating extends Rating {
   }
 
   // 추출한 함수를 서브클래스 메서드에서 오버라이드 후, 변형동작 옮겨옴.
-  get voyageAndHistoryLengthFactor() {
+  get voyageLengthFactor() {
     let result = 0;
     result += 3;
     if (this.voyage.length > 12) result += 1;
@@ -84,15 +84,13 @@ class Rating {
     if (this.voyage.zone === "중국") result += 1;
     if (this.voyage.zone === "동인도") result += 1;
     result += this.historyLengthFactor;
-    result += this.voyageAndHistoryLengthFactor;
+    result += this.voyageLengthFactor;
     return result;
   }
 
   // 변형동작이 얽혀있는 조건부 블록 전체를 함수로 추출
-  get voyageAndHistoryLengthFactor() {
-    let result = 0;
-    if (this.voyage.length > 14) result -= 1;
-    return result;
+  get voyageLengthFactor() {
+    return this.voyage.length > 14 ? -1 : 0;
   }
 
   get historyLengthFactor() {
