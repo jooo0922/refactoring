@@ -10,7 +10,14 @@ const myRating = rating(voyage, history);
 
 // 투자 등급
 function rating(voyage, history) {
-  return new Rating(voyage, history).value;
+  return createRating(voyage, history).value;
+}
+
+// 서브클래스 인스턴스를 생성하는 팩토리 함수
+function createRating(voyage, history) {
+  if (voyage.zone === "중국" && history.some((v) => "중국" === v.zone))
+    return new ExperiencedChinaRating(voyage, history);
+  else return new Rating(voyage, history);
 }
 
 // 변형 동작을 담당할 서브클래스 생성
