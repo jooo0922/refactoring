@@ -70,6 +70,13 @@ class Rating {
     let result = 2;
     if (this.voyage.zone === "중국") result += 1;
     if (this.voyage.zone === "동인도") result += 1;
+    result += this.voyageAndHistoryLengthFactor;
+    return result;
+  }
+
+  // 변형동작이 얽혀있는 조건부 블록 전체를 함수로 추출
+  get voyageAndHistoryLengthFactor() {
+    let result = 0;
     if (this.voyage.zone === "중국" && this.hasChinaHistory) {
       result += 3;
       if (this.history.length > 10) result += 1;
