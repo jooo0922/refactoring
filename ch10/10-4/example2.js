@@ -13,6 +13,9 @@ function rating(voyage, history) {
   return new Rating(voyage, history).value;
 }
 
+// 변형 동작을 담당할 서브클래스 생성
+class ExperiencedChinaRating extends Rating {}
+
 class Rating {
   constructor(voyage, history) {
     this.voyage = voyage;
