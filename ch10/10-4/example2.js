@@ -28,10 +28,15 @@ class ExperiencedChinaRating extends Rating {
     return Math.max(result, 0);
   }
 
+  get voyageProfitFactor() {
+    // voyageLengthFactor() 에서 voyage.length 와 무관하게 3점을 더해주던 로직은
+    // voyageLengthFactor 에 따라 붙는 가산점은 아니기 때문에, 전체 결과를 계산하는 메서드에서 더해주는 곳으로 이동시킴.
+    return super.voyageProfitFactor + 3;
+  }
+
   // 추출한 함수를 서브클래스 메서드에서 오버라이드 후, 변형동작 옮겨옴.
   get voyageLengthFactor() {
     let result = 0;
-    result += 3;
     if (this.voyage.length > 12) result += 1;
     if (this.voyage.length > 18) result -= 1;
     return result;
