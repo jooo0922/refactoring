@@ -53,4 +53,9 @@ class Customer {
   get paymentHistory() {
     return this._paymentHistory;
   }
+
+  // 미확인 고객인지를 나타내는 메서드 (특이 케이스인지 검사하는 메서드)
+  get isUnknown() {
+    return false; // Customer 는 일반적인 케이스에 대한 클래스 (컨테이너) 이므로, 예외 케이스가 아니니까 항상 false 를 리턴하는 게 맞겠지!
+  }
 }
