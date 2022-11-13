@@ -59,3 +59,13 @@ class Customer {
     return false; // Customer 는 일반적인 케이스에 대한 클래스 (컨테이너) 이므로, 예외 케이스가 아니니까 항상 false 를 리턴하는 게 맞겠지!
   }
 }
+
+// 미확인 고객 전용 클래스 (특이 케이스 객체)
+class UnknownCustomer {
+  constructor() {}
+
+  // 특이 케이스인지 검사하는 메서드
+  get isUnknown() {
+    return true; // 이 클래스 자체가 특이 케이스 클래스이므로 항상 true 를 리턴하는 게 맞겠지
+  }
+}
