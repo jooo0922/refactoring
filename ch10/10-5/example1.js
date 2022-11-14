@@ -13,9 +13,8 @@ const plan = aCustomer.billingPlan; // 요금제에 대해서도 특이 케이�
 aCustomer.billingPlan = newPlan; // 특이 케이스 클래스에도 세터를 만들어만 놓고, 내부에서 아무것도 하지 않도록 함. -> 특이 케이스는 항상 불변이어야 하기 때문! '특이 케이스'인데 값이 바뀐다는게 말이 안되잖아! 그건 특이 케이스가 아니지!
 
 // 클라이언트 4
-const weeksDeliquent = isUnknown(aCustomer)
-  ? 0
-  : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+// 특이 케이스 객체가 또 하나의 객체를 반환해야 한다면(paymentHistory), 그 객체 역시 특이 케이스 객체로 만들어 줌!
+const weeksDeliquent = aCustomer.paymentHistory.weeksDeliquentInLastYear;
 
 // 미확인 고객(특이 케이스) 검사 함수 추출
 function isUnknown(arg) {
@@ -82,8 +81,21 @@ class UnknownCustomer {
     /** 특이 케이스 클래스의 세터는 아무런 일도 하지 않음. -> 특이 케이스는 값 객체이므로, 항상 불변이어야 하기 때문! */
   }
 
+  get paymentHistory() {
+    return new NullPaymentHistory(); // 특이 케이스 클래스가 또 하나의 객체를 반환할 경우, 그 객체 역시 특이 케이스 객체로 만들 것!
+  }
+
   // 특이 케이스인지 검사하는 메서드
   get isUnknown() {
     return true; // 이 클래스 자체가 특이 케이스 클래스이므로 항상 true 를 리턴하는 게 맞겠지
+  }
+}
+
+// 특이 케이스 객체가 또 하나의 객체를 반환해야 한다면(paymentHistory), 그 객체 역시 특이 케이스 객체로 만들어 줄 것!
+class NullPaymentHistory {
+  constructor() {}
+
+  get weeksDeliquentInLastYear() {
+    return 0;
   }
 }
