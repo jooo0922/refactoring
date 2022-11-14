@@ -21,9 +21,9 @@ const weeksDeliquent = isUnknown(aCustomer)
 
 // 미확인 고객(특이 케이스) 검사 함수 추출
 function isUnknown(arg) {
-  if (!(arg instanceof Customer || arg === "미확인 고객"))
+  if (!(arg instanceof Customer || arg instanceof UnknownCustomer))
     throw new Error(`잘못된 값과 비교: <${arg}>`); // arg 에 엉뚱한 값이 들어왔을 때 에러를 던져 예외처리함
-  return arg === "미확인 고객";
+  return arg.isUnknown; // 특이케이스 검사 함수에서 특이케이스 클래스의 isUnknown() 메서드를 사용하도록 수정 -> 더이상 문자열로 특이케이스를 판단하는 코드는 없음!
 }
 
 class Site {
