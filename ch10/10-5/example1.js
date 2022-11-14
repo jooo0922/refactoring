@@ -16,6 +16,9 @@ aCustomer.billingPlan = newPlan; // 특이 케이스 클래스에도 세터를 �
 // 특이 케이스 객체가 또 하나의 객체를 반환해야 한다면(paymentHistory), 그 객체 역시 특이 케이스 객체로 만들어 줌!
 const weeksDeliquent = aCustomer.paymentHistory.weeksDeliquentInLastYear;
 
+// 튀는 클라이언트
+const name = !isUnknown(aCustomer) ? aCustomer.name : "미확인 거주자"; // "미확인 거주자" 라는 문자열은 특이케이스 클래스에서 가져올 수 없는 까다로운 클라이언트 코드임...
+
 // 미확인 고객(특이 케이스) 검사 함수 추출
 function isUnknown(arg) {
   if (!(arg instanceof Customer || arg instanceof UnknownCustomer))
