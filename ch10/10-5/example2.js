@@ -3,20 +3,23 @@ const site = new Site();
 const aCustomer = site.customer;
 // ... 수많은 코드 ...
 let customerName;
-if (aCustomer === "미확인 고객") customerName = "거주자";
+if (isUnknown(aCustomer)) customerName = "거주자";
 else customerName = aCustomer.name;
 
 // 클라이언트 2
-const plan =
-  aCustomer === "미확인 고객"
-    ? registry.billingPlan.basic
-    : aCustomer.billingPlan;
+const plan = isUnknown(aCustomer)
+  ? registry.billingPlan.basic
+  : aCustomer.billingPlan;
 
 // 클라이언트 3
-const weeksDeliquent =
-  aCustomer === "미확인 고객"
-    ? 0
-    : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+const weeksDeliquent = isUnknown(aCustomer)
+  ? 0
+  : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+
+// 특이 케이스 검사 조건 함수 추출
+function isUnknown(arg) {
+  return arg === "미확인 고객";
+}
 
 // 최상위...
 function createUnknownCustomer() {
