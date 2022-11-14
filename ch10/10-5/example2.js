@@ -8,9 +8,7 @@ let customerName = aCustomer.name;
 const plan = aCustomer.billingPlan;
 
 // 클라이언트 3
-const weeksDeliquent = isUnknown(aCustomer)
-  ? 0
-  : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+const weeksDeliquent = aCustomer.paymentHistory.weeksDeliquentInLastYear;
 
 // 특이 케이스 검사 조건 함수 추출
 function isUnknown(arg) {
@@ -24,6 +22,9 @@ function createUnknownCustomer() {
     isUnknown: true,
     name: "거주자",
     billingPlan: registry.billingPlan.basic,
+    paymentHistory: {
+      weeksDeliquentInLastYear: 0,
+    }, // 납부 이력에 대한 특이 케이스 응답은 중첩 리터럴로 구성!
   };
 }
 
