@@ -18,6 +18,14 @@ const weeksDeliquent =
     ? 0
     : aCustomer.paymentHistory.weeksDeliquentInLastYear;
 
+// 최상위...
+function createUnknownCustomer() {
+  // 특이 케이스가 리터럴 객체
+  return {
+    isUnknown: true,
+  };
+}
+
 class Site {
   constructor() {
     this._customer = new Customer(); // 이 필드는 일반적인 케이스에서는 Customer 클래스 인스턴스가 들어가지만, 예외 케이스에서는 "미확인 고객" 이라는 문자열이 들어감.
