@@ -7,12 +7,10 @@ const aCustomer = site.customer;
 let customerName = aCustomer.name;
 
 // 클라이언트 2
-const plan = isUnknown(aCustomer)
-  ? registry.billingPlan.basic
-  : aCustomer.billingPlan;
+const plan = aCustomer.billingPlan; // 요금제에 대해서도 특이 케이스에 게터를 만들고, 일반적인 기본값을 반환하도록 함.
 
 // 클라이언트 3
-if (!isUnknown(aCustomer)) aCustomer.billingPlan = newPlan;
+aCustomer.billingPlan = newPlan; // 특이 케이스 클래스에도 세터를 만들어만 놓고, 내부에서 아무것도 하지 않도록 함. -> 특이 케이스는 항상 불변이어야 하기 때문! '특이 케이스'인데 값이 바뀐다는게 말이 안되잖아! 그건 특이 케이스가 아니지!
 
 // 클라이언트 4
 const weeksDeliquent = isUnknown(aCustomer)
@@ -74,6 +72,14 @@ class UnknownCustomer {
   // 특이 케이스 관련 동작을 특이 케이스 클래스의 메서드로 옮김
   get name() {
     return "거주자";
+  }
+
+  get billingPlan() {
+    return registry.billingPlan.basic;
+  }
+
+  set billingPlan(arg) {
+    /** 특이 케이스 클래스의 세터는 아무런 일도 하지 않음. -> 특이 케이스는 값 객체이므로, 항상 불변이어야 하기 때문! */
   }
 
   // 특이 케이스인지 검사하는 메서드
