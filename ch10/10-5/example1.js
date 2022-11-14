@@ -3,23 +3,28 @@ const site = new Site();
 const aCustomer = site.customer;
 // ... 수많은 코드 ...
 let customerName;
-if (aCustomer === "미확인 고객") customerName = "거주자";
+if (isUnknown(aCustomer)) customerName = "거주자";
 else customerName = aCustomer.name;
 
 // 클라이언트 2
-const plan =
-  aCustomer === "미확인 고객"
-    ? registry.billingPlan.basic
-    : aCustomer.billingPlan;
+const plan = isUnknown(aCustomer)
+  ? registry.billingPlan.basic
+  : aCustomer.billingPlan;
 
 // 클라이언트 3
-if (aCustomer !== "미확인 고객") aCustomer.billingPlan = newPlan;
+if (!isUnknown(aCustomer)) aCustomer.billingPlan = newPlan;
 
 // 클라이언트 4
-const weeksDeliquent =
-  aCustomer === "미확인 고객"
-    ? 0
-    : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+const weeksDeliquent = isUnknown(aCustomer)
+  ? 0
+  : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+
+// 미확인 고객(특이 케이스) 검사 함수 추출
+function isUnknown(arg) {
+  if (!(arg instanceof Customer || arg === "미확인 고객"))
+    throw new Error(`잘못된 값과 비교: <${arg}>`); // arg 에 엉뚱한 값이 들어왔을 때 에러를 던져 예외처리함
+  return arg === "미확인 고객";
+}
 
 class Site {
   constructor() {
