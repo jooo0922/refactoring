@@ -2,9 +2,7 @@
 const site = new Site();
 const aCustomer = site.customer;
 // ... 수많은 코드 ...
-let customerName;
-if (isUnknown(aCustomer)) customerName = "거주자";
-else customerName = aCustomer.name;
+let customerName = aCustomer.name;
 
 // 클라이언트 2
 const plan = isUnknown(aCustomer)
@@ -26,6 +24,7 @@ function createUnknownCustomer() {
   // 특이 케이스가 리터럴 객체
   return {
     isUnknown: true,
+    name: "거주자",
   };
 }
 
