@@ -18,7 +18,7 @@ const weeksDeliquent = isUnknown(aCustomer)
 
 // 특이 케이스 검사 조건 함수 추출
 function isUnknown(arg) {
-  return arg === "미확인 고객";
+  return arg.isUnknown;
 }
 
 // 최상위...
@@ -35,7 +35,9 @@ class Site {
   }
 
   get customer() {
-    return this._customer;
+    return this._customer === "미확인 고객"
+      ? createUnknownCustomer()
+      : this._customer;
   }
 }
 
