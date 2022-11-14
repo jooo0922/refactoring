@@ -2,9 +2,9 @@
 const site = new Site();
 const aCustomer = site.customer;
 // ... 수많은 코드 ...
-let customerName;
-if (isUnknown(aCustomer)) customerName = "거주자";
-else customerName = aCustomer.name;
+// 이제 특이 케이스 클래스에서도 name() 게터가 존재하기 때문에, 굳이 조건문으로 특이 케이스인지 따져보지 않아도 됨.
+// -> Customer 와 UnknownCustomor 둘 다 name() 게터가 있으니까, 뭐가 됬건 각자의 name 을 리턴하겠지!
+let customerName = aCustomer.name;
 
 // 클라이언트 2
 const plan = isUnknown(aCustomer)
@@ -70,6 +70,11 @@ class Customer {
 // 미확인 고객 전용 클래스 (특이 케이스 객체)
 class UnknownCustomer {
   constructor() {}
+
+  // 특이 케이스 관련 동작을 특이 케이스 클래스의 메서드로 옮김
+  get name() {
+    return "거주자";
+  }
 
   // 특이 케이스인지 검사하는 메서드
   get isUnknown() {
