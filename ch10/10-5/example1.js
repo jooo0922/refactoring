@@ -20,13 +20,6 @@ const weeksDeliquent = aCustomer.paymentHistory.weeksDeliquentInLastYear;
 // 특이 케이스 클래스로 구할 수 없는 걸 요구하는 클라이언트 코드의 경우, 특이 케이스 검사 코드를 유지하되, 추출한 함수가 아닌 컨테이너 클래스 내의 검사 메서드를 사용할 것!
 const name = aCustomer.isUnknown ? "미확인 거주자" : aCustomer.name; // "미확인 거주자" 라는 문자열은 특이케이스 클래스에서 가져올 수 없는 까다로운 클라이언트 코드임...
 
-// 미확인 고객(특이 케이스) 검사 함수 추출
-function isUnknown(arg) {
-  if (!(arg instanceof Customer || arg instanceof UnknownCustomer))
-    throw new Error(`잘못된 값과 비교: <${arg}>`); // arg 에 엉뚱한 값이 들어왔을 때 에러를 던져 예외처리함
-  return arg.isUnknown; // 특이케이스 검사 함수에서 특이케이스 클래스의 isUnknown() 메서드를 사용하도록 수정 -> 더이상 문자열로 특이케이스를 판단하는 코드는 없음!
-}
-
 class Site {
   constructor() {
     this._customer = new Customer(); // 이 필드는 일반적인 케이스에서는 Customer 클래스 인스턴스가 들어가지만, 예외 케이스에서는 "미확인 고객" 이라는 문자열이 들어감.
