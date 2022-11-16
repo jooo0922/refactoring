@@ -11,9 +11,7 @@ let customerName = aCustomer.name; // 특이 케이스 객체 레코드에도 na
 const plan = aCustomer.billingPlan; // 특이 케이스 객체 레코드에도 billingPlan 속성이 보강(enrich)되었으므로, 이를 사용할 것.
 
 // 클라이언트 3
-const weeksDeliquent = isUnknown(aCustomer)
-  ? 0
-  : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+const weeksDeliquent = aCustomer.paymentHistory.weeksDeliquentInLastYear; // 특이 케이스 객체 레코드에도 paymentHistory 속성이 보강(enrich)되었으므로, 이를 사용할 것.
 
 function acquireSiteData() {
   const siteData1 = {
@@ -48,6 +46,9 @@ function enrichSite(inputSite) {
     isUnknown: true,
     name: "거주자", // 특이 케이스에 name 속성 보강
     billingPlan: registry.billingPlans.basic, // 특이 케이스에 billingPlan 속성 보강
+    paymentHistory: {
+      weeksDeliquentInLastYear: 0, // 특이 케이스에 paymentHistory 속성 보강
+    },
   };
 
   // 기존 site 데이터 구조에 isUnknown 속성을 덧붙인다(enrich)
@@ -59,6 +60,6 @@ function enrichSite(inputSite) {
 // 특이 케이스 검사 함수 추출
 function isUnknown(aCustomer) {
   if (aCustomer === "미확인 고객")
-    return true; // 기존 검사 로직 유지 (rawSite 검사용)
+    return true; // 기존 검사 로직 유지 (rawSite 검사용 -> enrichSite() 함수에서 rawSite 데이터를 가지고 특이 케이스 여부를 검사하기 때문에 남겨둬야 함.)
   else return aCustomer.isUnknown; // 보강된 속성값으로 검사하는 로직 추가 (enrich site 검사용)
 }
