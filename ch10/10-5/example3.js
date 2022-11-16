@@ -8,9 +8,7 @@ const aCustomer = site.customer;
 let customerName = aCustomer.name; // 특이 케이스 객체 레코드에도 name 속성이 보강(enrich)되었으므로, 이를 사용할 것.
 
 // 클라이언트 2
-const plan = isUnknown(aCustomer)
-  ? registry.billingPlan.basic
-  : aCustomer.billingPlan;
+const plan = aCustomer.billingPlan; // 특이 케이스 객체 레코드에도 billingPlan 속성이 보강(enrich)되었으므로, 이를 사용할 것.
 
 // 클라이언트 3
 const weeksDeliquent = isUnknown(aCustomer)
@@ -49,6 +47,7 @@ function enrichSite(inputSite) {
   const unknownCustomer = {
     isUnknown: true,
     name: "거주자", // 특이 케이스에 name 속성 보강
+    billingPlan: registry.billingPlans.basic, // 특이 케이스에 billingPlan 속성 보강
   };
 
   // 기존 site 데이터 구조에 isUnknown 속성을 덧붙인다(enrich)
