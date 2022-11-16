@@ -6,20 +6,18 @@ const site = enrichSite(rawSite);
 const aCustomer = site.customer;
 // ... 수많은 코드 ...
 let customerName;
-if (aCustomer === "미확인 고객") customerName = "거주자";
+if (isUnknown(aCustomer)) customerName = "거주자";
 else customerName = aCustomer.name;
 
 // 클라이언트 2
-const plan =
-  aCustomer === "미확인 고객"
-    ? registry.billingPlan.basic
-    : aCustomer.billingPlan;
+const plan = isUnknown(aCustomer)
+  ? registry.billingPlan.basic
+  : aCustomer.billingPlan;
 
 // 클라이언트 3
-const weeksDeliquent =
-  aCustomer === "미확인 고객"
-    ? 0
-    : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+const weeksDeliquent = isUnknown(aCustomer)
+  ? 0
+  : aCustomer.paymentHistory.weeksDeliquentInLastYear;
 
 function acquireSiteData() {
   const siteData1 = {
@@ -50,4 +48,9 @@ function acquireSiteData() {
 // 형태나 구조 자체를 바꿀 때에는 'transform' 이라고 이름붙인다
 function enrichSite(inputSite) {
   return _.cloneDeep(inputSite); // 별도의 작업 없이 깊은 복사만 수행
+}
+
+// 특이 케이스 검사 함수 추출
+function isUnknown(aCustomer) {
+  return aCustomer === "미확인 고객";
 }
