@@ -47,10 +47,20 @@ function acquireSiteData() {
 // 변환함수 중에서 부가 정보만 덧붙이는 변환함수는 'enrich' 라고 이름붙이고,
 // 형태나 구조 자체를 바꿀 때에는 'transform' 이라고 이름붙인다
 function enrichSite(inputSite) {
-  return _.cloneDeep(inputSite); // 별도의 작업 없이 깊은 복사만 수행
+  const result = _.cloneDeep(inputSite);
+  const unknownCustomer = {
+    isUnknown: true,
+  };
+
+  // 기존 site 데이터 구조에 isUnknown 속성을 덧붙인다(enrich)
+  if (isUnknown(result.customer)) result.customer = unknownCustomer;
+  else result.customer.isUnknown = false;
+  return result;
 }
 
 // 특이 케이스 검사 함수 추출
 function isUnknown(aCustomer) {
-  return aCustomer === "미확인 고객";
+  if (aCustomer === "미확인 고객")
+    return true; // 기존 검사 로직 유지 (rawSite 검사용)
+  else return aCustomer.isUnknown; // 보강된 속성값으로 검사하는 로직 추가 (enrich site 검사용)
 }
