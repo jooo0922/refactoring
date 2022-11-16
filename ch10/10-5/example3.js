@@ -1,7 +1,8 @@
 let _ = require("lodash"); // lodash 패키지를 가져온다. (cloneDeep() 메서드를 사용하기 위함)
 
 // 클라이언트 1
-const site = acquireSiteData();
+const rawSite = acquireSiteData();
+const site = enrichSite(rawSite);
 const aCustomer = site.customer;
 // ... 수많은 코드 ...
 let customerName;
@@ -42,4 +43,11 @@ function acquireSiteData() {
     customer: "미확인 고객",
   };
   return siteData2;
+}
+
+// 현장 데이터 구조를 변환하는 함수
+// 변환함수 중에서 부가 정보만 덧붙이는 변환함수는 'enrich' 라고 이름붙이고,
+// 형태나 구조 자체를 바꿀 때에는 'transform' 이라고 이름붙인다
+function enrichSite(inputSite) {
+  return _.cloneDeep(inputSite); // 별도의 작업 없이 깊은 복사만 수행
 }
