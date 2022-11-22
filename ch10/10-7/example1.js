@@ -8,11 +8,11 @@ function checkForMiscreants(people) {
     if (!found) {
       if (p === "조커") {
         sendAlert();
-        found = true;
+        return;
       }
       if (p === "사루만") {
         sendAlert();
-        found = true;
+        return;
       }
     }
   }
