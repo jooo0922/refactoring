@@ -1,8 +1,8 @@
 // 배송일자 계산 호출 코드 1
-aShipment.deliveryDate = deliveryDate(anOrder, true);
+aShipment.deliveryDate = rushDeliveryData(anOrder);
 
 // 배송일자 계산 호출 코드 2
-aShipment.deliveryDate = deliveryDate(anOrder, false);
+aShipment.deliveryDate = regularDeliveryDate(anOrder);
 
 // 플래그 인수 사용 함수가 너무 복잡해서 손댈 엄둑가 안난다면, 불리언 값에 따라 각각 래핑함수로 감싸버림.
 function rushDeliveryData(anOrder) {
