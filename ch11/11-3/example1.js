@@ -4,11 +4,6 @@ aShipment.deliveryDate = rushDeliveryDate(anOrder);
 // 배송일자 계산 호출 코드 2
 aShipment.deliveryDate = regularDeliveryDate(anOrder);
 
-function deliveryDate(anOrder, isRush) {
-  if (isRush) return rushDeliveryDate(anOrder);
-  else return regularDeliveryDate(anOrder);
-}
-
 function regularDeliveryDate(anOrder) {
   let deliveryTime;
   if (["MA", "CT", "NY"].includes(anOrder.deliveryState)) deliveryTime = 2;
