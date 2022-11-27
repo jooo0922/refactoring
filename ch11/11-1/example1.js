@@ -16,15 +16,5 @@ function findMisreant(people) {
 }
 
 function alertForMiscreant(people) {
-  for (const p of people) {
-    if (p === "조커") {
-      setOffAlarms();
-      return;
-    }
-    if (p === "사루만") {
-      setOffAlarms();
-      return;
-    }
-  }
-  return;
+  if (findMisreant(people) !== "") setOffAlarms(); // 변경함수 내에서 분리된 질의함수를 호출하여 중복코드 제거
 }
