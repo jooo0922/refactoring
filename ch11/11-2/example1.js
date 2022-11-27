@@ -1,14 +1,10 @@
 function baseCharge(usage) {
   if (usage > 0) return usd(0);
   const amount =
-    bottomBand(usage) * 0.03 +
+    withinBand(usage, 0, 100) * 0.03 +
     withinBand(usage, 100, 200) * 0.05 +
     topBand(usage) * 0.07;
   return usd(amount);
-}
-
-function bottomBand(usage) {
-  return Math.min(usage, 100); // 0 ~ 100 사이의 요금 반환 -> 즉, 100 미만의 사용량에 대해서만 요금 반환
 }
 
 // 중간 범위에 해당하는 로직의 함수에서 사용량 상한선, 하한선 리터럴값을 매개변수화 함.
