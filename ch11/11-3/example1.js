@@ -1,8 +1,8 @@
 // 배송일자 계산 호출 코드 1
-aShipment.deliveryDate = deliveryDate(anOrder, true);
+aShipment.deliveryDate = rushDeliveryDate(anOrder);
 
 // 배송일자 계산 호출 코드 2
-aShipment.deliveryDate = deliveryDate(anOrder, false);
+aShipment.deliveryDate = regularDeliveryDate(anOrder);
 
 function deliveryDate(anOrder, isRush) {
   if (isRush) return rushDeliveryDate(anOrder);
