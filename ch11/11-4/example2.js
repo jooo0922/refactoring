@@ -6,9 +6,9 @@ if (!isWithinRange) alerts.push("방 온도가 지정 범위를 벗어났습니�
 
 class HeatingPlan2 {
   withinRange(tempRange) {
-    const isWithinRange =
+    return (
       tempRange.low >= this._temperatureRange.low &&
-      tempRange.high <= this._temperatureRange.high;
-    return isWithinRange;
+      tempRange.high <= this._temperatureRange.high
+    );
   }
 }
