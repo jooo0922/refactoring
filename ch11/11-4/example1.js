@@ -5,12 +5,9 @@ if (!aPlan.xxNEWwithinRange(aRoom.daysTempRange))
 
 class HeatingPlan {
   xxNEWwithinRange(aNumberRange) {
-    return this.withinRange(aNumberRange.low, aNumberRange.high);
-  }
-
-  withinRange(bottom, top) {
     return (
-      bottom >= this._temperatureRange.low && top <= this._temperatureRange.high
+      aNumberRange.bottom >= this._temperatureRange.low &&
+      aNumberRange.top <= this._temperatureRange.high
     );
   }
 }
