@@ -2,8 +2,7 @@ const thermostat = {}; // 전역객체
 
 class HeatingPlan {
   get targetTemperature() {
-    const selectedTemperature = thermostat.selectedTemperature; // 전역변수 질의코드를 임시변수로 추출
-    return this.xxNEWtargetTemperature(selectedTemperature);
+    return this.xxNEWtargetTemperature(thermostat.selectedTemperature);
   }
 
   xxNEWtargetTemperature(selectedTemperature) {
