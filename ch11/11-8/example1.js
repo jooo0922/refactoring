@@ -17,6 +17,10 @@ class Employee {
   }
 }
 
+function createEmployee(name, typeCode) {
+  return new Employee(name, typeCode);
+}
+
 // 호출자1
 let candidate;
 candidate = new Employee(document.name, document.empType);
