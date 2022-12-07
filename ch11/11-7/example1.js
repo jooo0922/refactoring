@@ -1,6 +1,6 @@
 class Person {
   constructor(id) {
-    this.id = id;
+    this._id = id;
   }
 
   get name() {
@@ -13,10 +13,6 @@ class Person {
 
   get id() {
     return this._id;
-  }
-
-  set id(arg) {
-    this._id = arg;
   }
 }
 
