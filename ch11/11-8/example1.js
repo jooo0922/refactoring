@@ -23,7 +23,7 @@ function createEmployee(name, typeCode) {
 
 // 호출자1
 let candidate;
-candidate = new Employee(document.name, document.empType);
+candidate = createEmployee(document.name, document.empType);
 
 // 호출자2
-const leadEngineer = new Employee(document.leadEngineer, "E");
+const leadEngineer = createEmployee(document.leadEngineer, "E");
