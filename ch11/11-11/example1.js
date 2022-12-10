@@ -1,10 +1,10 @@
 let totalAscent = calculateAscent();
 
 function calculateAscent() {
-  let totalAscent;
+  let result;
   for (let i = 0; i < points.length; i++) {
     const verticalChange = points[i].elevation - points[i - 1].elevation;
-    totalAscent += verticalChange > 0 ? verticalChange : 0;
+    result += verticalChange > 0 ? verticalChange : 0;
   }
-  return totalAscent;
+  return result;
 }
