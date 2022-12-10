@@ -13,7 +13,8 @@ class ChargeCalculator {
 
   // 명령 실행 메서드
   get charge() {
-    return this.baseCharge + this._provider.connectionCharge;
+    const baseCharge = this.baseCharge;
+    return baseCharge + this._provider.connectionCharge;
   }
 }
 
