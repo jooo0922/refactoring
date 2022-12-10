@@ -6,14 +6,9 @@ class ChargeCalculator {
     this._provider = provider;
   }
 
-  // 보조 메서드
-  get baseCharge() {
-    return this._customer.baseRate * this._usage;
-  }
-
   // 명령 실행 메서드
   get charge() {
-    const baseCharge = this.baseCharge;
+    const baseCharge = this._customer.baseRate * this._usage;
     return baseCharge + this._provider.connectionCharge;
   }
 }
