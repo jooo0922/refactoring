@@ -1,4 +1,4 @@
-let totalAscent = calculateAscent();
+const totalAscent = calculateAscent();
 
 function calculateAscent() {
   let result;
