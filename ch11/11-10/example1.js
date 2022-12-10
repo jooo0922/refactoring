@@ -18,4 +18,9 @@ class ChargeCalculator {
 }
 
 // 호출자...
-monthCharge = new ChargeCalculator(customElements, usage, provider).charge;
+monthCharge = charge(customElements, usage, provider);
+
+// 명령 객체 생성 및 실행 호출 코드를 함수로 추출
+function charge(customElements, usage, provider) {
+  return new ChargeCalculator(customElements, usage, provider).charge;
+}
