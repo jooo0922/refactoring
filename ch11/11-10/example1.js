@@ -1,15 +1,11 @@
 // 명령 객체
 class ChargeCalculator {
-  constructor(customer, usage, provider) {
-    this._customer = customer;
-    this._usage = usage;
-    this._provider = provider;
-  }
+  constructor(customer, usage, provider) {}
 
   // 명령 실행 메서드
   charge(customer, usage, provider) {
-    const baseCharge = this._customer.baseRate * this._usage;
-    return baseCharge + this._provider.connectionCharge;
+    const baseCharge = customer.baseRate * usage;
+    return baseCharge + provider.connectionCharge;
   }
 }
 
