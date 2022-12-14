@@ -1,3 +1,14 @@
+// 예외 서브클래스 (오류를 처리할 예외와 기타 예외를 구분하기 위한 클래스)
+class OrderProcessingError extends Error {
+  constructor(errorCode) {
+    super(`주문 처리 오류: ${errorCode}`);
+    this.code = errorCode;
+  }
+  get name() {
+    return "OrderProcessingError";
+  }
+}
+
 // 최상위 콜스택
 let shippingStatus;
 try {
