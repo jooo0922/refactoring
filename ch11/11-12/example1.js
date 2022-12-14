@@ -10,9 +10,8 @@ class OrderProcessingError extends Error {
 }
 
 // 최상위 콜스택
-let shippingStatus;
 try {
-  shippingStatus = calculateShippingCosts(orderData);
+  calculateShippingCosts(orderData);
 } catch (e) {
   // 예외 처리 로직
   if (e instanceof OrderProcessingError) {
