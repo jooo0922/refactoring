@@ -15,7 +15,11 @@ try {
   shippingStatus = calculateShippingCosts(orderData);
 } catch (e) {
   // 예외 처리 로직
-  throw e;
+  if (e instanceof OrderProcessingError) {
+    errorList.push({ order: orderData, errorCode: e.code }); // 예외처리 시 처리하고자 하는 로직
+  } else {
+    throw e; // 그밖의 예외처리 로직
+  }
 }
 if (shippingStatus < 0)
   errorList.push({ order: orderData, errorCode: shippingStatus });
