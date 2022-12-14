@@ -1,8 +1,10 @@
 // 최상위 콜스택
+let shippingStatus;
 try {
-  const shippingStatus = calculateShippingCosts(orderData);
-} catch (error) {
+  shippingStatus = calculateShippingCosts(orderData);
+} catch (e) {
   // 예외 처리 로직
+  throw e;
 }
 if (shippingStatus < 0)
   errorList.push({ order: orderData, errorCode: shippingStatus });
