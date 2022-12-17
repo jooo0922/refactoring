@@ -8,6 +8,9 @@ class Employee {
   assignCar() {
     // ...
   }
+  finishConstruction() {
+    if (this.isPrivileged) this.assignCar();
+  }
 }
 
 class Manager extends Employee {
@@ -15,10 +18,6 @@ class Manager extends Employee {
     super(name);
     this._grade = grade;
     this.finishConstruction(); // 모든 서브클래스가 수행
-  }
-
-  finishConstruction() {
-    if (this.isPrivileged) this.assignCar();
   }
 
   get isPrivileged() {
