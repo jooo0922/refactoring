@@ -3,8 +3,8 @@ class Party {}
 class Employee extends Party {
   constructor(name, id, monthlyCost) {
     super();
-    this._id = id;
     this._name = name; // 공통 코드
+    this._id = id;
     this._monthlyCost = monthlyCost;
   }
   // 생략
