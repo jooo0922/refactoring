@@ -27,5 +27,9 @@ class Engineer extends Employee {
 }
 
 function createEmployee(name, type) {
+  switch (type) {
+    case "engineer":
+      return new Engineer(name, type);
+  }
   return new Employee(name, type);
 }
