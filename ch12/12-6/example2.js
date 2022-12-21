@@ -1,14 +1,7 @@
 class Employee {
   constructor(name, type) {
-    this.validateType(type);
     this._name = name;
     this._type = type;
-  }
-
-  validateType(arg) {
-    if (!["engineer", "manager", "salesperson"].includes(arg)) {
-      throw new Error(`${arg}라는 직원 유형은 없습니다.`);
-    }
   }
 
   get typeString() {
@@ -32,7 +25,7 @@ class Employee {
       case "salesperson":
         return new Salesperson();
       default:
-        break;
+        throw new Error(`${arg}라는 직원 유형은 없습니다.`);
     }
   }
 
