@@ -29,19 +29,19 @@ class Employee {
     }
   }
 
-  get capitalizedType() {
-    return (
-      this.typeString.charAt(0).toUpperCase() +
-      this.typeString.substr(1).toLowerCase()
-    );
-  }
-
   toString() {
-    return `${this._name} (${this.capitalizedType})`;
+    return `${this._name} (${this.type.capitalizedType})`;
   }
 }
 
-class EmployeeType {}
+class EmployeeType {
+  get capitalizedName() {
+    return (
+      this.toString().charAt(0).toUpperCase() +
+      this.toString().substr(1).toLowerCase()
+    );
+  }
+}
 
 class Engineer extends EmployeeType {
   toString() {
