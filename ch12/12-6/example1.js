@@ -2,15 +2,15 @@ class Employee {
   constructor(name) {
     this._name = name;
   }
-
-  toString() {
-    return `${this._name} (${this.type})`;
-  }
 }
 
 class Engineer extends Employee {
   get type() {
     return "engineer";
+  }
+
+  toString() {
+    return `${this._name} (${this.type})`;
   }
 }
 
@@ -18,11 +18,19 @@ class Salesperson extends Employee {
   get type() {
     return "salesperson";
   }
+
+  toString() {
+    return `${this._name} (${this.type})`;
+  }
 }
 
 class Manager extends Employee {
   get type() {
     return "manager";
+  }
+
+  toString() {
+    return `${this._name} (${this.type})`;
   }
 }
 
