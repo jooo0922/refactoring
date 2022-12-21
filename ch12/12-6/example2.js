@@ -27,6 +27,8 @@ class Employee {
     switch (aString) {
       case "engineer":
         return new Engineer();
+      case "manager":
+        return new Manager();
       default:
         break;
     }
@@ -49,5 +51,11 @@ class EmployeeType {}
 class Engineer extends EmployeeType {
   toString() {
     return "engineer";
+  }
+}
+
+class Manager extends EmployeeType {
+  toString() {
+    return "manager";
   }
 }
