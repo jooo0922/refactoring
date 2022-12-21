@@ -23,6 +23,15 @@ class Employee {
     this._type = new EmployeeType(arg);
   }
 
+  static createEmployeeType(aString) {
+    switch (aString) {
+      case "engineer":
+        return new Engineer();
+      default:
+        break;
+    }
+  }
+
   get capitalizedType() {
     return (
       this.typeString.charAt(0).toUpperCase() +
@@ -35,12 +44,10 @@ class Employee {
   }
 }
 
-class EmployeeType {
-  constructor(aString) {
-    this._value = aString;
-  }
+class EmployeeType {}
 
+class Engineer extends EmployeeType {
   toString() {
-    return this._value;
+    return "engineer";
   }
 }
