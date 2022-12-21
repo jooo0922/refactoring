@@ -1,8 +1,4 @@
-class Employee {
-  get quota() {
-    // ...
-  }
-}
+class Employee {}
 
 class Engineer extends Employee {
   // ...
