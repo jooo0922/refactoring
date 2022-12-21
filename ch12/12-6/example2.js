@@ -29,6 +29,8 @@ class Employee {
         return new Engineer();
       case "manager":
         return new Manager();
+      case "salesperson":
+        return new Salesperson();
       default:
         break;
     }
@@ -57,5 +59,11 @@ class Engineer extends EmployeeType {
 class Manager extends EmployeeType {
   toString() {
     return "manager";
+  }
+}
+
+class Salesperson extends EmployeeType {
+  toString() {
+    return "salesperson";
   }
 }
