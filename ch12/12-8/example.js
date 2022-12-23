@@ -2,6 +2,11 @@ class Party {
   constructor(name) {
     this._name = name;
   }
+
+  // 이름
+  get name() {
+    return this._name;
+  }
 }
 
 class Employee extends Party {
@@ -13,10 +18,6 @@ class Employee extends Party {
   // 월간비용
   get monthlyCost() {
     return this._monthlyCost;
-  }
-  // 이름
-  get name() {
-    return this._name;
   }
   get id() {
     return this._id;
@@ -35,10 +36,6 @@ class Department extends Party {
   }
   get staff() {
     return this._staff;
-  }
-  // 이름
-  get name() {
-    return this._name;
   }
 
   // 총 월간 비용
