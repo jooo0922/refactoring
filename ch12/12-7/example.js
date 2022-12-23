@@ -1,7 +1,7 @@
 class Person {
   constructor(name, genderCode) {
     this._name = name;
-    this._genderCode = genderCode || "X";
+    this._genderCode = genderCode;
   }
 
   get name() {
@@ -19,27 +19,15 @@ class Person {
   // 생략
 }
 
-class Male extends Person {
-  get genderCode() {
-    return "M";
-  }
-}
-
-class Female extends Person {
-  get genderCode() {
-    return "F";
-  }
-}
-
 // 클라이언트...
 function createPerson(aRecord) {
   switch (aRecord.gender) {
     case "M":
       return new Person(aRecord.name, "M");
     case "F":
-      return new Female(aRecord.name);
+      return new Person(aRecord.name, "F");
     default:
-      return new Person(aRecord.name);
+      return new Person(aRecord.name, "X");
   }
 }
 
