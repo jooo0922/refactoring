@@ -1,6 +1,7 @@
 class Person {
-  constructor(name) {
+  constructor(name, genderCode) {
     this._name = name;
+    this._genderCode = genderCode || "X";
   }
 
   get name() {
@@ -8,7 +9,7 @@ class Person {
   }
 
   get genderCode() {
-    return "X";
+    return this._genderCode;
   }
 
   get isMale() {
@@ -46,4 +47,4 @@ function loadFromInput(data) {
   return data.map((aRecord) => result.push(createPerson(aRecord)));
 }
 
-const numberOfMales = people.filter((p) => isMale(p)).length;
+const numberOfMales = people.filter((p) => p.isMale).length;
