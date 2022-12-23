@@ -7,6 +7,11 @@ class Party {
   get name() {
     return this._name;
   }
+
+  // 총 연간 비용
+  get annualCost() {
+    return this.monthlyCost * 12;
+  }
 }
 
 class Employee extends Party {
@@ -21,11 +26,6 @@ class Employee extends Party {
   }
   get id() {
     return this._id;
-  }
-
-  // 연간비용
-  get annualCost() {
-    return this.monthlyCost * 12;
   }
 }
 
@@ -46,9 +46,5 @@ class Department extends Party {
   }
   get headCount() {
     return this.staff.length;
-  }
-  // 총 연간 비용
-  get annualCost() {
-    return this.monthlyCost * 12;
   }
 }
