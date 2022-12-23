@@ -13,7 +13,7 @@ class Person {
   }
 
   get isMale() {
-    return this instanceof Male;
+    return "M" === this._genderCode;
   }
 
   // 생략
@@ -35,7 +35,7 @@ class Female extends Person {
 function createPerson(aRecord) {
   switch (aRecord.gender) {
     case "M":
-      return new Male(aRecord.name);
+      return new Person(aRecord.name, "M");
     case "F":
       return new Female(aRecord.name);
     default:
