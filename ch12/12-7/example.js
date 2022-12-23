@@ -42,4 +42,8 @@ function loadFromInput(data) {
   return data.map((aRecord) => result.push(createPerson(aRecord)));
 }
 
-const numberOfMales = people.filter((p) => p instanceof Male).length;
+function isMale(aPerson) {
+  return aPerson instanceof Male;
+}
+
+const numberOfMales = people.filter((p) => isMale(p)).length;
