@@ -11,6 +11,10 @@ class Person {
     return "X";
   }
 
+  get isMale() {
+    return this instanceof Male;
+  }
+
   // 생략
 }
 
@@ -40,10 +44,6 @@ function createPerson(aRecord) {
 
 function loadFromInput(data) {
   return data.map((aRecord) => result.push(createPerson(aRecord)));
-}
-
-function isMale(aPerson) {
-  return aPerson instanceof Male;
 }
 
 const numberOfMales = people.filter((p) => isMale(p)).length;
