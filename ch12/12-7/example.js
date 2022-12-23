@@ -39,11 +39,7 @@ function createPerson(aRecord) {
 }
 
 function loadFromInput(data) {
-  const result = [];
-  data.forEach((aRecord) => {
-    result.push(createPerson(aRecord));
-  });
-  return result;
+  return data.map((aRecord) => result.push(createPerson(aRecord)));
 }
 
 const numberOfMales = people.filter((p) => p instanceof Male).length;
