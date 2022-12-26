@@ -34,6 +34,8 @@ class Bird {
         return new EuropeanSwallowDelegate();
       case "아프리카 제비":
         return new AfricanSwallowDelegate(data);
+      case "노르웨이 파랑 앵무":
+        return new NorwegianBlueParrotDelegate(data);
       default:
         return null;
     }
@@ -73,5 +75,12 @@ class AfricanSwallowDelegate {
 
   get airSpeedVelocity() {
     return 40 - 2 * this._numberOfCoconuts;
+  }
+}
+
+class NorwegianBlueParrotDelegate {
+  constructor(data) {
+    this._voltage = data.voltage;
+    this._isNailed = data.isNailed;
   }
 }
