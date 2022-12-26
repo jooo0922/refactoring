@@ -42,35 +42,39 @@ class Bird {
   }
 }
 
+// plumage 메서드 중복을 해결하기 위해 위임클래스들의 슈퍼클래스 추출
+class SpeciesDelegate {
+  constructor(data, bird) {
+    this._bird = bird;
+  }
+  get plumage() {
+    return this._bird._plumage || "보통이다";
+  }
+  // ...
+}
+
 // 서브클래스마다 위임클래스 별도 생성
-class EuropeanSwallowDelegate {
+class EuropeanSwallowDelegate extends SpeciesDelegate {
   get airSpeedVelocity() {
     return 35;
   }
-
-  get plumage() {
-    return this._plumage || "보통이다";
-  }
 }
 
-class AfricanSwallowDelegate {
+class AfricanSwallowDelegate extends SpeciesDelegate {
   // 이번 위임클래스는 서브클래스에 특화된 데이터(numberOfCoconuts 가 담긴 data)들을 전부 받도록 함.
-  constructor(data) {
+  constructor(data, bird) {
+    super(data, bird);
     this._numberOfCoconuts = data.numberOfCoconuts;
   }
 
   get airSpeedVelocity() {
     return 40 - 2 * this._numberOfCoconuts;
   }
-
-  get plumage() {
-    return this._plumage || "보통이다";
-  }
 }
 
-class NorwegianBlueParrotDelegate {
+class NorwegianBlueParrotDelegate extends SpeciesDelegate {
   constructor(data, bird) {
-    this._bird = bird; // 슈퍼클래스 역참조 필드
+    super(data, bird);
     this._voltage = data.voltage;
     this._isNailed = data.isNailed;
   }
