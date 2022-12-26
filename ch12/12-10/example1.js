@@ -28,10 +28,6 @@ class PremiumBooking extends Booking {
     super(show, date);
     this._extras = extras;
   }
-
-  get hasDinner() {
-    return this._extras.hasOwnProperty("dinner") && !this.isPeakDay;
-  }
 }
 
 class PremiumBookingDelegate {
@@ -43,6 +39,10 @@ class PremiumBookingDelegate {
   get hasTalkBack() {
     // 슈퍼클래스 데이터를 사용하기 위해 역참조 필드 _host 로 슈퍼클래스 역참조
     return this._host._show.hasOwnProperty("talkback");
+  }
+
+  get hasDinner() {
+    return this._extras.hasOwnProperty("dinner") && !this_host.isPeakDay;
   }
 
   extendBasePrice(base) {
