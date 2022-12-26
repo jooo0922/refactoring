@@ -5,7 +5,9 @@ class Booking {
   }
 
   get hasTalkBack() {
-    return this._show.hasOwnProperty("talkback") && !this.isPeakDay;
+    return this._premiumDelegate
+      ? this._premiumDelegate.hasTalkBack
+      : this._show.hasOwnProperty("talkback") && !this.isPeakDay;
   }
 
   get basePrice() {
