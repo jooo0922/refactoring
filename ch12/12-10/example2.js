@@ -1,8 +1,6 @@
 // 팩터리 함수
 function createBird(data) {
   switch (data.type) {
-    case "아프리카 제비":
-      return new AfricanSwallow(data);
     case "노르웨이 파랑 앵무":
       return new NorwegianBlueParrot(data);
     default:
@@ -39,18 +37,6 @@ class Bird {
       default:
         return null;
     }
-  }
-}
-
-// 서브클래스2
-class AfricanSwallow extends Bird {
-  constructor(data) {
-    super(data);
-    this._numberOfCoconuts = data._numberOfCoconuts;
-  }
-
-  get airSpeedVelocity() {
-    return this._speciesDelegate.airSpeedVelocity;
   }
 }
 
