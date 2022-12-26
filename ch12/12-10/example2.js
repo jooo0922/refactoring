@@ -2,10 +2,13 @@
 function createBird(data) {
   switch (data.type) {
     case "유럽 제비":
-      break;
-
+      return new EuropeanSwallow(data);
+    case "아프리카 제비":
+      return new AfricanSwallow(data);
+    case "노르웨이 파랑 앵무":
+      return new NorwegianBlueParrot(data);
     default:
-      break;
+      return new Bird(data);
   }
 }
 
@@ -40,7 +43,7 @@ class Bird {
 // 서브클래스1
 class EuropeanSwallow extends Bird {
   get airSpeedVelocity() {
-    return 35;
+    return this._speciesDelegate.airSpeedVelocity;
   }
 }
 
@@ -75,4 +78,8 @@ class NorwegianBlueParrot extends Bird {
 }
 
 // 서브클래스마다 위임클래스 별도 생성
-class EuropeanSwallowDelegate {}
+class EuropeanSwallowDelegate {
+  get airSpeedVelocity() {
+    return 35;
+  }
+}
