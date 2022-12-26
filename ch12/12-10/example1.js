@@ -25,10 +25,6 @@ class PremiumBooking extends Booking {
     this._extras = extras;
   }
 
-  get hasTalkBack() {
-    return this._premiumDelegate.hasTalkBack; // 위임필드로 옮긴 메서드 호출 (슈퍼클래스에 위임필드가 존재하므로, 서브클래스에서도 참조 가능)
-  }
-
   get basePrice() {
     return Math.round(super.basePrice + this._extras.premiumFee);
   }
