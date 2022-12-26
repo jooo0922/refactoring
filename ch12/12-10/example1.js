@@ -26,7 +26,7 @@ class PremiumBooking extends Booking {
   }
 
   get hasTalkBack() {
-    return this._show.hasOwnProperty("talkback");
+    return this._premiumDelegate.hasTalkBack; // 위임필드로 옮긴 메서드 호출 (슈퍼클래스에 위임필드가 존재하므로, 서브클래스에서도 참조 가능)
   }
 
   get basePrice() {
@@ -42,6 +42,11 @@ class PremiumBookingDelegate {
   constructor(hostBooking, extras) {
     this._host = hostBooking;
     this._extras = extras;
+  }
+
+  get hasTalkBack() {
+    // 슈퍼클래스 데이터를 사용하기 위해 역참조 필드 _host 로 슈퍼클래스 역참조
+    return this._host._show.hasOwnProperty("talkback");
   }
 }
 
