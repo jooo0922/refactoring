@@ -1,8 +1,6 @@
 // 팩터리 함수
 function createBird(data) {
   switch (data.type) {
-    case "노르웨이 파랑 앵무":
-      return new NorwegianBlueParrot(data);
     default:
       return new Bird(data);
   }
@@ -20,7 +18,9 @@ class Bird {
     return this._name;
   }
   get plumage() {
-    return this._plumage || "보통이다";
+    return this._speciesDelegate
+      ? this._speciesDelegate.plumage
+      : this._plumage || "보통이다";
   }
   get airSpeedVelocity() {
     return this._speciesDelegate // 위임 존재 여부 검사 보호코드
@@ -42,27 +42,14 @@ class Bird {
   }
 }
 
-// 서브클래스3
-class NorwegianBlueParrot extends Bird {
-  constructor(data) {
-    super(data);
-    this._voltage = data.voltage;
-    this._isNailed = data._isNailed;
-  }
-
-  get plumage() {
-    return this._speciesDelegate.plumage;
-  }
-
-  get airSpeedVelocity() {
-    return this._speciesDelegate.airSpeedVelocity;
-  }
-}
-
 // 서브클래스마다 위임클래스 별도 생성
 class EuropeanSwallowDelegate {
   get airSpeedVelocity() {
     return 35;
+  }
+
+  get plumage() {
+    return this._plumage || "보통이다";
   }
 }
 
@@ -74,6 +61,10 @@ class AfricanSwallowDelegate {
 
   get airSpeedVelocity() {
     return 40 - 2 * this._numberOfCoconuts;
+  }
+
+  get plumage() {
+    return this._plumage || "보통이다";
   }
 }
 
