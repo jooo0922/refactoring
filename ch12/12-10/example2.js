@@ -18,26 +18,22 @@ class Bird {
     return this._name;
   }
   get plumage() {
-    return this._speciesDelegate
-      ? this._speciesDelegate.plumage
-      : this._plumage || "보통이다";
+    return this._speciesDelegate.plumage; // Bird 위임 메서드가 간결해짐.
   }
   get airSpeedVelocity() {
-    return this._speciesDelegate // 위임 존재 여부 검사 보호코드
-      ? this._speciesDelegate.airSpeedVelocity
-      : null;
+    return this._speciesDelegate.airSpeedVelocity; // Bird 위임 메서드가 간결해짐.
   }
 
   selectSpeciesDelegate(data) {
     switch (data.type) {
       case "유럽 제비":
-        return new EuropeanSwallowDelegate();
+        return new EuropeanSwallowDelegate(data, this);
       case "아프리카 제비":
-        return new AfricanSwallowDelegate(data);
+        return new AfricanSwallowDelegate(data, this);
       case "노르웨이 파랑 앵무":
         return new NorwegianBlueParrotDelegate(data, this); // 슈퍼클래스 역참조를 위해 해당 위임클래스에 Bird 클래스 인수로 전달
       default:
-        return null;
+        return new SpeciesDelegate(data, this);
     }
   }
 }
@@ -47,8 +43,13 @@ class SpeciesDelegate {
   constructor(data, bird) {
     this._bird = bird;
   }
+
+  // 위임클래스들의 슈퍼클래스에 기본동작 정의 가능
   get plumage() {
     return this._bird._plumage || "보통이다";
+  }
+  get airSpeedVelocity() {
+    return null;
   }
   // ...
 }
