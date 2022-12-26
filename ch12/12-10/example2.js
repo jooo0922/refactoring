@@ -14,6 +14,7 @@ class Bird {
   constructor(data) {
     this._name = data.name;
     this._plumage = data.plumage;
+    this._speciesDelegate = this.selectSpeciesDelegate(data); // 슈퍼클래스 생성자에서 위임필드 초기화
   }
 
   get name() {
@@ -24,6 +25,15 @@ class Bird {
   }
   get airSpeedVelocity() {
     return null;
+  }
+
+  selectSpeciesDelegate(data) {
+    switch (data.type) {
+      case "유럽 제비":
+        return new EuropeanSwallowDelegate();
+      default:
+        return null;
+    }
   }
 }
 
