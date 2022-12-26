@@ -35,7 +35,7 @@ class Bird {
       case "아프리카 제비":
         return new AfricanSwallowDelegate(data);
       case "노르웨이 파랑 앵무":
-        return new NorwegianBlueParrotDelegate(data);
+        return new NorwegianBlueParrotDelegate(data, this); // 슈퍼클래스 역참조를 위해 해당 위임클래스에 Bird 클래스 인수로 전달
       default:
         return null;
     }
@@ -51,8 +51,7 @@ class NorwegianBlueParrot extends Bird {
   }
 
   get plumage() {
-    if (this._voltage > 100) return "그을렸다";
-    else return this._plumage || "예쁘다";
+    return this._speciesDelegate.plumage;
   }
 
   get airSpeedVelocity() {
@@ -79,12 +78,18 @@ class AfricanSwallowDelegate {
 }
 
 class NorwegianBlueParrotDelegate {
-  constructor(data) {
+  constructor(data, bird) {
+    this._bird = bird; // 슈퍼클래스 역참조 필드
     this._voltage = data.voltage;
     this._isNailed = data.isNailed;
   }
 
   get airSpeedVelocity() {
     return this._isNailed ? 0 : 10 + this._voltage / 10;
+  }
+
+  get plumage() {
+    if (this._voltage > 100) return "그을렸다";
+    else return this._bird._plumage || "예쁘다"; // 해당 메서드를 위임클래스로 옮기려면 슈퍼클래스 역참조 필요
   }
 }
