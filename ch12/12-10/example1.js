@@ -18,6 +18,10 @@ class Booking {
       : result;
   }
 
+  get hasDinner() {
+    return this._premiumDelegate ? this._premiumDelegate.hasDinner : undefined;
+  }
+
   _bePremium(extras) {
     this._premiumDelegate = new PremiumBookingDelegate(this, extras);
   }
