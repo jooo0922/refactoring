@@ -1,9 +1,6 @@
 // 팩터리 함수
 function createBird(data) {
-  switch (data.type) {
-    default:
-      return new Bird(data);
-  }
+  return new Bird(data);
 }
 
 // 슈퍼클래스
