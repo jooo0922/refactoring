@@ -27,7 +27,9 @@ class Bird {
     return this._plumage || "보통이다";
   }
   get airSpeedVelocity() {
-    return null;
+    return this._speciesDelegate // 위임 존재 여부 검사 보호코드
+      ? this._speciesDelegate.airSpeedVelocity
+      : null;
   }
 
   selectSpeciesDelegate(data) {
