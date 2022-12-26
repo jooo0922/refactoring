@@ -63,3 +63,6 @@ class NorwegianBlueParrot extends Bird {
     return this._isNailed ? 0 : 10 + this._voltage / 10;
   }
 }
+
+// 서브클래스마다 위임클래스 별도 생성
+class EuropeanSwallowDelegate {}
